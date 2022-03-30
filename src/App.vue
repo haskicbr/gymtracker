@@ -1,37 +1,26 @@
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+<template>
+  <v-app>
+    <v-main>
+      <HelloWorld/>
+    </v-main>
+  </v-app>
+</template>
 
-@Options({
+<script lang="ts">
+import { defineComponent } from 'vue'
+import HelloWorld from './components/HelloWorld.vue'
+
+export default defineComponent({
+  name: 'App',
+
   components: {
     HelloWorld,
   },
-  methods: {
-    click() {
-      console.log('click');
-    },
-  }
+
+  data () {
+    return {
+      //
+    }
+  },
 })
-export default class App extends Vue {}
 </script>
-<template>
-  <img @click="click" alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-</template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.test {
-  &__info {
-    background: red;
-  }
-}
-</style>
