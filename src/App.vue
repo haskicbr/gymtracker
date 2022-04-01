@@ -8,7 +8,6 @@ export default defineComponent({
   components: {
     HelloWorld,
   },
-  methods: {},
   data() {
     return {
       drawer: false,
@@ -16,6 +15,7 @@ export default defineComponent({
       routes
     }
   },
+  methods: {},
 })
 </script>
 
@@ -24,9 +24,11 @@ export default defineComponent({
 </style>
 
 <template>
-  <v-theme-provider theme="dark" withBackground="true">
+  <v-theme-provider
+    theme="dark"
+    :with-background="true"
+  >
     <v-app>
-
       <v-main>
         <v-navigation-drawer
           v-model="drawer"
@@ -35,34 +37,60 @@ export default defineComponent({
         >
           <v-list-item>
             <v-avatar>
-              <img width="100%" height="100%" :class=" drawer ? 'doge-logo--animation-rotation' : ''" :src="doge"
-                   alt="doge-logo"/>
+              <img
+                width="100%"
+                height="100%"
+                :class=" drawer ? 'doge-logo--animation-rotation' : ''"
+                :src="doge"
+                alt="doge-logo"
+              >
             </v-avatar>
-            <v-list-item-title class="doge-logo__title">Dogegym</v-list-item-title>
+            <v-list-item-title class="doge-logo__title">
+              Dogegym
+            </v-list-item-title>
           </v-list-item>
-          <v-divider></v-divider>
+          <v-divider />
           <nav>
-            <v-list density="compact" nav>
-              <router-link v-for="route in routes" custom v-slot="{ isActive, href, navigate }" :to="route.path">
-                <v-list-item :active="isActive" :href="route.path" @click="navigate" :prepend-icon="route.icon"
-                             :title="route.name"></v-list-item>
+            <v-list
+              density="compact"
+              nav
+            >
+              <router-link
+                v-for="route in routes"
+                v-slot="{ isActive, href, navigate }"
+                custom
+                :to="route.path"
+              >
+                <v-list-item
+                  v-if="route.isMainMenu"
+                  :active="isActive"
+                  :href="route.path"
+                  :prepend-icon="route.icon"
+                  :title="route.name"
+                  @click="navigate"
+                />
               </router-link>
             </v-list>
           </nav>
         </v-navigation-drawer>
 
-        <router-view/>
+        <router-view />
       </v-main>
 
       <v-app-bar
         color="default"
         position="bottom"
       >
-        <div class="justify-center" style="margin: 0 auto">
-          <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <div
+          class="justify-center"
+          style="margin: 0 auto"
+        >
+          <v-app-bar-nav-icon
+            variant="text"
+            @click.stop="drawer = !drawer"
+          />
         </div>
       </v-app-bar>
-
     </v-app>
   </v-theme-provider>
 </template>
