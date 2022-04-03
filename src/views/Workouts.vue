@@ -5,7 +5,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const deleteWorkout = (id: string) => {
-  store.commit('deleteWorkouts', id);
+  store.commit('deleteWorkout', id);
 }
 
 </script>
@@ -15,13 +15,13 @@ const deleteWorkout = (id: string) => {
     <v-row>
       <v-col
         v-for="workout in store.state.workouts"
+        :key="workout.id"
         md="3"
         lg="2"
         cols="6"
       >
         <v-card
           class="mx-auto"
-          max-width="344"
         >
           <v-card-content>
             <div>
@@ -37,7 +37,7 @@ const deleteWorkout = (id: string) => {
                 <v-table style="width: 100%">
                   <tbody>
                     <tr
-                      v-for="(item, index) in workout.repetition"
+                      v-for="(item, index) in workout.repeats"
                       :key="index"
                     >
                       <td class="text-center">
@@ -67,6 +67,7 @@ const deleteWorkout = (id: string) => {
                 Изменить
               </v-btn>
             </router-link>
+
             <v-btn
               text
               color="warning"

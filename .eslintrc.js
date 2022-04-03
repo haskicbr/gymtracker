@@ -12,8 +12,12 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/ban-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    'vue/no-v-model-argument': 'off',
+    'vue/no-v-for-template-key': 'off',
+    //ue/no-v-for-template-key
   }, "parser": "vue-eslint-parser",
+
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": 2020,

@@ -1,13 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue';
 import routes from "@/router/routes";
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld,
-  },
+
   data() {
     return {
       drawer: false,
@@ -57,6 +54,7 @@ export default defineComponent({
             >
               <router-link
                 v-for="route in routes"
+                :key="route.name"
                 v-slot="{ isActive, href, navigate }"
                 custom
                 :to="route.path"
@@ -73,7 +71,6 @@ export default defineComponent({
             </v-list>
           </nav>
         </v-navigation-drawer>
-
         <router-view />
       </v-main>
 

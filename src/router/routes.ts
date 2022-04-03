@@ -17,7 +17,6 @@ const routes: Array<CustomRouteRecordRaw> = [
     name: 'workouts',
     component: () => import(/* webpackChunkName: "about" */ '../views/Workouts.vue'),
     isMainMenu:true,
-
   },
   {
     icon: 'mdi-view-dashboard',
@@ -32,7 +31,14 @@ const routes: Array<CustomRouteRecordRaw> = [
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
     isMainMenu:true,
+  },
 
+  {
+    icon: 'mdi-view-dashboard',
+    path: '/test',
+    name: 'test',
+    component: () => import(/* webpackChunkName: "about" */ '../views/TestComponent.vue'),
+    isMainMenu:true,
   }
 ];
 export default routes;
