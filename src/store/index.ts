@@ -1,8 +1,12 @@
 import { createStore } from 'vuex'
-import { DogeGymState, Workout, WorkoutRepeat } from "@/typings/interfaces";
+import { DogeGymState, Workout, WorkoutPlan, WorkoutRepeat } from "@/typings/interfaces";
+import workoutPlans from "@/views/WorkoutPlans.vue";
 
 
 const state: DogeGymState = {
+
+  workoutPlans: [],
+
   workouts: [
     {
       id: '11',
@@ -63,6 +67,18 @@ export default createStore({
   state,
   getters: {},
   mutations: {
+
+
+    addWorkoutPlan(state, workoutPlan: WorkoutPlan) {
+      state.workoutPlans.push(workoutPlan);
+    },
+
+    updateWorkoutPlan(state, workoutPlan: WorkoutPlan) {
+     const index =  state.workoutPlans.findIndex(e => workoutPlan.id === e.id);
+      state.workoutPlans[index] = workoutPlan;
+     },
+
+
     addWorkout(state, workout: Workout) {
       state.workouts.push(workout);
     },

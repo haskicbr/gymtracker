@@ -1,5 +1,13 @@
 interface WorkoutPlan {
+  id: string;
+  title: string;
+  description: string;
+  workouts: string[];
+}
 
+
+interface WorkoutGroup {
+  name: string;
 }
 
 
@@ -17,6 +25,7 @@ interface Workout {
 }
 
 interface DogeGymState {
+  workoutPlans: WorkoutPlan[];
   workouts: Workout[];
 }
 

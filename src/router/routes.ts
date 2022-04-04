@@ -13,6 +13,13 @@ const routes: Array<CustomRouteRecordRaw> = [
   },
   {
     icon: 'mdi-view-dashboard',
+    path: '/workout-plans',
+    name: 'workout plans',
+    component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlans.vue'),
+    isMainMenu:true,
+  },  {
+
+    icon: 'mdi-view-dashboard',
     path: '/workouts',
     name: 'workouts',
     component: () => import(/* webpackChunkName: "about" */ '../views/Workouts.vue'),
