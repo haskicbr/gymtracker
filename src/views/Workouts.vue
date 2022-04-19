@@ -1,9 +1,16 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import uuid from 'uuidv4';
+
+import { Workout } from "@/typings/interfaces";
 import { useStore } from 'vuex';
+import { useRoute, useRouter } from "vue-router";
+import { createWebHashHistory } from "vue-router";
+import WorkoutAddForm from "@/components/forms/WorkoutAddForm.vue";
+
 
 const store = useStore();
-
+const router = useRouter();
+const route = useRoute();
 const deleteWorkout = (id: string) => {
   store.commit('deleteWorkout', id);
 }
@@ -14,10 +21,20 @@ const deleteWorkout = (id: string) => {
   <v-container>
     <v-row>
       <v-col
+        md="4"
+        lg="3"
+        cols="12"
+      >
+        <WorkoutAddForm />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col
         v-for="workout in store.state.workouts"
         :key="workout.id"
-        md="3"
-        lg="2"
+        md="4"
+        lg="3"
         cols="6"
       >
         <v-card

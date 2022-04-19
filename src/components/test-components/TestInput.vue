@@ -18,9 +18,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'update:title', 'testEvent'],
   data() {
-    return {
-
-    }
+    return {}
   },
 
   methods: {
@@ -55,9 +53,6 @@ export default defineComponent({
       :value="title"
       @input="updateTitle"
     >
-
-
-
     <v-btn @click="$emit('testEvent')">
       test-event click
     </v-btn>

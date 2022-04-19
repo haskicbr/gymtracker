@@ -1,22 +1,21 @@
 <template>
   <div>
-    {{ workoutPlans }}
+    <h1>
+      WorkoutPlan
+    </h1>
+
+    <WorkoutPlanForm />
   </div>
 </template>
 
-<script lang="ts">
-
+<script>
 import { defineComponent } from "vue";
 import WorkoutPlanForm from "@/components/forms/WorkoutPlanForm.vue";
 
 export default defineComponent({
-  name: "WorkoutPlans",
-  components: {},
-  data() {
-    const workoutPlans = this.$store.state.workoutPlans;
-    return {
-      workoutPlans
-    }
+  name: "WorkoutPlan",
+  components: {
+    WorkoutPlanForm
   }
 });
 </script>

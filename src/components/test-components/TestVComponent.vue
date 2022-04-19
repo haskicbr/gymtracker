@@ -9,9 +9,6 @@ export default defineComponent({
       test: 'test data'
     }
   },
-
-
-
 });
 </script>
 

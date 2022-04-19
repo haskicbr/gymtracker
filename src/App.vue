@@ -64,7 +64,7 @@ export default defineComponent({
                   :active="isActive"
                   :href="route.path"
                   :prepend-icon="route.icon"
-                  :title="route.name"
+                  :title="route.name + JSON.stringify(isActive)"
                   @click="navigate"
                 />
               </router-link>

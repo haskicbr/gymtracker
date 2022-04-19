@@ -2,6 +2,7 @@
 
 import { defineComponent } from "vue";
 import { Workout, WorkoutPlan } from "@/typings/interfaces";
+import uuid from 'uuidv4';
 
 export default defineComponent({
   name: "WorkoutPlanForm",
@@ -10,10 +11,9 @@ export default defineComponent({
 
     let workoutPlan: WorkoutPlan = this.$store.state.workoutPlans[0];
 
-
     if (!workoutPlan) {
       workoutPlan = {
-        id: 'test-id',
+        id: uuid(),
         title: 'test',
         description: '',
         workouts: []
@@ -33,7 +33,9 @@ export default defineComponent({
     return {
       workoutPlan,
       workoutOptions,
-      checkedWorkoutIds
+      checkedWorkoutIds,
+      activeIcon: 'mdi-check-circle-outline',
+      defaultIcon:'mdi-checkbox-blank-circle-outline'
     }
   },
 
@@ -42,7 +44,7 @@ export default defineComponent({
 
     checkWorkout(workoutId: string) {
 
-      const ids = this.$data.checkedWorkoutIds;
+      const ids = this.checkedWorkoutIds;
       const index = ids.findIndex((el: string) => el === workoutId);
 
       if (index >= 0) {
@@ -51,10 +53,8 @@ export default defineComponent({
         ids.push(workoutId);
       }
 
-      this.$data.workoutPlan.workouts = ids;
-
-
-      this.$store.commit('updateWorkoutPlan', this.$data.workoutPlan);
+      this.workoutPlan.workouts = ids;
+      this.$store.commit('updateWorkoutPlan', this.workoutPlan);
     }
   }
 });
@@ -78,14 +78,32 @@ export default defineComponent({
       <v-list-item two-line>
         <v-list-item-header>
           <v-list-item-title>Two-line item</v-list-item-title>
-          <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
+          <v-list-item-subtitle />
         </v-list-item-header>
       </v-list-item>
 
+      <v-list-item>
+        <v-text-field
+          v-model="workoutPlan.title"
+          color="primary"
+          label="Заголовок"
+          :hide-details="true"
+        />
+      </v-list-item>
+
+      <v-list-item>
+        <v-text-field
+          v-model="workoutPlan.description"
+          color="primary"
+          label="Описание"
+          :hide-details="true"
+        />
+      </v-list-item>
       <v-list-item
         v-for="option in workoutOptions"
         :key="option.id"
         three-line
+        @click.stop="checkWorkout(option.id)"
       >
         <v-list-item-header>
           <v-list-item-title>{{ option.title }}</v-list-item-title>
@@ -102,8 +120,7 @@ export default defineComponent({
             <v-btn
               variant="text"
               :color=" checkedWorkoutIds.includes(option.id) ? 'primary' : 'grey '"
-              icon="mdi-information"
-              @click="checkWorkout(option.id)"
+              :icon="checkedWorkoutIds.includes(option.id) ? activeIcon : defaultIcon"
             />
           </v-list-item-avatar>
         </template>

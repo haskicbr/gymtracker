@@ -5,11 +5,20 @@ import workoutPlans from "@/views/WorkoutPlans.vue";
 
 const state: DogeGymState = {
 
-  workoutPlans: [],
+  workoutPlans: [
+/*    {
+
+      id: '1',
+      title : 'Monday plan',
+      description :'Every monday',
+      workouts: []
+
+    }*/
+  ],
 
   workouts: [
     {
-      id: '11',
+      id: '1',
       title: 'Жим лежа',
       description: 'uid123123',
       repeats: [{
@@ -22,7 +31,7 @@ const state: DogeGymState = {
         weight: 10,
       }]
     }, {
-      id: '11',
+      id: '2',
       title: 'Жим лежа',
       description: 'uid123123',
       repeats: [{
@@ -35,7 +44,7 @@ const state: DogeGymState = {
         weight: 10,
       }]
     }, {
-      id: '11',
+      id: '3',
       title: 'Жим лежа',
       description: 'uid123123',
       repeats: [{
@@ -49,7 +58,7 @@ const state: DogeGymState = {
       }]
     },
     {
-      id: '12',
+      id: '4',
       title: 'Приседания со штангой',
       description: 'uid123123',
       repeats: [{
@@ -108,14 +117,11 @@ export default createStore({
       const index = state.workouts.findIndex(e => e.id === workout.id);
       state.workouts[index].repeats[repeatIndex].weight += 1;
     },
-
     decreaseRepeat(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
       const index = state.workouts.findIndex(e => e.id === workout.id);
       state.workouts[index].repeats[repeatIndex].weight -= 1;
     },
-
-
   },
   actions: {},
   modules: {}
-})
+});
