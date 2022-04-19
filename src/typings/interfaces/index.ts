@@ -29,9 +29,16 @@ interface DogeGymState {
   workouts: Workout[];
 }
 
+interface DogeGymGetters {
+  getWorkoutById:  Workout | undefined
+}
+
+
+
 export {
   WorkoutPlan,
   Workout,
   WorkoutRepeat,
-  DogeGymState
+  DogeGymState,
+  DogeGymGetters
 }

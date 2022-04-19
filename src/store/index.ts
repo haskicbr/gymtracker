@@ -2,18 +2,25 @@ import { createStore } from 'vuex'
 import { DogeGymState, Workout, WorkoutPlan, WorkoutRepeat } from "@/typings/interfaces";
 import workoutPlans from "@/views/WorkoutPlans.vue";
 
+const storageName = 'dogeGymState';
 
-const state: DogeGymState = {
+let storageString = localStorage.getItem(storageName);
+
+storageString = storageString === null ? 'null' : storageString;
+
+const storageState = JSON.parse(storageString);
+
+let state: DogeGymState = {
 
   workoutPlans: [
-/*    {
+    /*    {
 
-      id: '1',
-      title : 'Monday plan',
-      description :'Every monday',
-      workouts: []
+          id: '1',
+          title : 'Monday plan',
+          description :'Every monday',
+          workouts: []
 
-    }*/
+        }*/
   ],
 
   workouts: [
@@ -72,20 +79,32 @@ const state: DogeGymState = {
   ]
 }
 
-export default createStore({
-  state,
-  getters: {},
-  mutations: {
 
+
+if (storageState) {
+  state = storageState;
+}
+
+const store = createStore({
+  state,
+  getters: {
+    getWorkoutById: (state: DogeGymState) => (id: string): Workout | undefined => {
+      return state.workouts.find(el => el.id === id);
+    },
+    getWorkoutPlanById: (state: DogeGymState) => (id: string): WorkoutPlan | undefined  => {
+      return state.workoutPlans.find(el => el.id === id);
+    }
+  },
+  mutations: {
 
     addWorkoutPlan(state, workoutPlan: WorkoutPlan) {
       state.workoutPlans.push(workoutPlan);
     },
 
     updateWorkoutPlan(state, workoutPlan: WorkoutPlan) {
-     const index =  state.workoutPlans.findIndex(e => workoutPlan.id === e.id);
+      const index = state.workoutPlans.findIndex(e => workoutPlan.id === e.id);
       state.workoutPlans[index] = workoutPlan;
-     },
+    },
 
 
     addWorkout(state, workout: Workout) {
@@ -101,6 +120,13 @@ export default createStore({
       const index = state.workouts.findIndex(e => e.id === id);
       if (index > -1) {
         state.workouts.splice(index, 1);
+      }
+    },
+
+    deleteWorkoutPlan(state, id: string) {
+      const index = state.workoutPlans.findIndex(e => e.id === id);
+      if (index > -1) {
+        state.workoutPlans.splice(index, 1);
       }
     },
 
@@ -125,3 +151,9 @@ export default createStore({
   actions: {},
   modules: {}
 });
+
+setInterval(() => {
+  localStorage.setItem(storageName, JSON.stringify(store.state));
+}, 1000);
+
+export default store;

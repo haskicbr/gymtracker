@@ -1,10 +1,11 @@
 import HomeView from "@/views/HomeView.vue";
 import { RouteRecordRaw } from 'vue-router';
 
-type CustomRouteRecordRaw = RouteRecordRaw & { icon?: string, isMainMenu: boolean }
+type CustomRouteRecordRaw = RouteRecordRaw & { icon?: string, isMainMenu: boolean, title?: string }
 
 const routes: Array<CustomRouteRecordRaw> = [
   {
+    title: 'Главная страничка',
     icon: 'mdi-view-dashboard',
     path: '/',
     name: 'home',
@@ -12,13 +13,14 @@ const routes: Array<CustomRouteRecordRaw> = [
     isMainMenu:true,
   },
   {
+    title: 'Тренировочки',
     icon: 'mdi-view-dashboard',
     path: '/workout-plans',
-    name: 'workout plans',
+    name: 'workoutPlans',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlans.vue'),
     isMainMenu:true,
   },  {
-
+    title: 'Упражнения',
     icon: 'mdi-view-dashboard',
     path: '/workouts',
     name: 'workouts',
@@ -33,6 +35,7 @@ const routes: Array<CustomRouteRecordRaw> = [
     isMainMenu:false,
   },
   {
+    title: 'О приложении',
     icon: 'mdi-view-dashboard',
     path: '/about',
     name: 'about',
@@ -41,6 +44,7 @@ const routes: Array<CustomRouteRecordRaw> = [
   },
 
   {
+    title: 'test',
     icon: 'mdi-view-dashboard',
     path: '/test',
     name: 'test',
@@ -50,9 +54,9 @@ const routes: Array<CustomRouteRecordRaw> = [
   {
     icon: 'mdi-view-dashboard',
     path: '/workout-plan/:id',
-    name: 'workout plan',
+    name: 'workoutPlanForm',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlan.vue'),
-    isMainMenu:true,
+    isMainMenu:false,
   }
 ];
 export default routes;

@@ -3,14 +3,32 @@
 import { defineComponent } from "vue";
 import { Workout, WorkoutPlan } from "@/typings/interfaces";
 import uuid from 'uuidv4';
+import router from "@/router";
 
 export default defineComponent({
   name: "WorkoutPlanForm",
 
+
+  props: {
+    planId: {
+      type: String,
+      default: null
+    }
+  },
+
   data() {
 
-    let workoutPlan: WorkoutPlan = this.$store.state.workoutPlans[0];
+    let workoutPlan;
+    if(this.$props.planId) {
+      workoutPlan = this.$store.getters.getWorkoutPlanById(this.$props.planId);
 
+      console.log({workoutPlan, id: this.$props.planId})
+    } else {
+
+    }
+
+
+    console.log([workoutPlan])
     if (!workoutPlan) {
       workoutPlan = {
         id: uuid(),
@@ -62,8 +80,6 @@ export default defineComponent({
 
 <template>
   <div>
-    {{ checkedWorkoutIds }}
-
     <v-card
       class="mx-auto mt-10"
       max-width="400"
@@ -119,7 +135,7 @@ export default defineComponent({
           <v-list-item-avatar end>
             <v-btn
               variant="text"
-              :color=" checkedWorkoutIds.includes(option.id) ? 'primary' : 'grey '"
+              :color="checkedWorkoutIds.includes(option.id) ? 'primary' : 'grey '"
               :icon="checkedWorkoutIds.includes(option.id) ? activeIcon : defaultIcon"
             />
           </v-list-item-avatar>

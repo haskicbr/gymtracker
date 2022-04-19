@@ -1,25 +1,26 @@
-<template>
-  <div>
-    <h1>
-      WorkoutPlan
-    </h1>
-
-    <WorkoutPlanForm />
-  </div>
-</template>
-
 <script>
 import { defineComponent } from "vue";
 import WorkoutPlanForm from "@/components/forms/WorkoutPlanForm.vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "WorkoutPlan",
   components: {
     WorkoutPlanForm
+  },
+
+  data() {
+    const id = this.$route.params.id;
+    return {
+      id
+    }
   }
 });
 </script>
 
-<style scoped>
 
-</style>
+<template>
+  <div>
+    <WorkoutPlanForm :plan-id="id" />
+  </div>
+</template>

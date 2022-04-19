@@ -3,27 +3,20 @@
 
 export default {
   name: 'HomeView',
-  components: {
-
-  },
+  components: {},
 
 
   data() {
-
-    console.log({
-      store: this.$store
-    })
-    return {}
+    return {
+      doge: require('@/assets/about.png'),
+    }
   }
 }
 
 </script>
 
 <template>
-  <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
-    >
-  </div>
+  <v-container />
 </template>
+
+
