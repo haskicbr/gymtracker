@@ -80,7 +80,6 @@ let state: DogeGymState = {
 }
 
 
-
 if (storageState) {
   state = storageState;
 }
@@ -91,8 +90,15 @@ const store = createStore({
     getWorkoutById: (state: DogeGymState) => (id: string): Workout | undefined => {
       return state.workouts.find(el => el.id === id);
     },
-    getWorkoutPlanById: (state: DogeGymState) => (id: string): WorkoutPlan | undefined  => {
+    getWorkoutPlanById: (state: DogeGymState) => (id: string): WorkoutPlan | undefined => {
       return state.workoutPlans.find(el => el.id === id);
+    },
+
+    // Получить индекс группировки
+    getMaxWorkoutOrder() {
+      const max = [{ y: 1 }, { y: 2 }, { y: 3 }].reduce(function (prev, current) {
+        return (prev.y > current.y) ? prev : current
+      })
     }
   },
   mutations: {

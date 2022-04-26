@@ -25,6 +25,9 @@ export default defineComponent({
 
     getPlanFormUrl(id: string) {
       return router.resolve({ name: 'workoutPlanForm', params: { id } })
+    },
+    runWorkoutPlan() {
+
     }
   }
 });
@@ -71,17 +74,13 @@ export default defineComponent({
               >
                 <v-table style="width: 100%">
                   <tbody>
-                    <tr>
-                      <td>
-                        {{ workoutPlan.workouts }}
-                      </td>
-                    </tr>
                     <tr
                       v-for="(item, index) in workoutPlan.workouts"
                       :key="index"
                     >
                       <td class="text-center">
-                        {{ item }}
+                        {{ $store.getters.getWorkoutById(item?.id)?.title }}
+                        {{ $store.getters.getWorkoutById(item?.id)?.description }}
                       </td>
                     </tr>
                   </tbody>
@@ -112,6 +111,18 @@ export default defineComponent({
             >
               удалить
             </v-btn>
+          </v-card-actions>
+
+          <v-card-actions>
+            <v-btn
+              width="100%"
+              text
+              color="primary"
+              @click="runWorkoutPlan(workoutPlan.id)"
+            >
+              Начать
+            </v-btn>
+            <v-card-actions />
           </v-card-actions>
         </v-card>
       </v-col>

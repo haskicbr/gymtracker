@@ -20,7 +20,7 @@ export default defineComponent({
 
     const id = route.params.id;
 
-    let workout: Workout | undefined;
+    let workout;
 
     if (id) {
       workout = store.state.workouts.find((e: Workout) => e.id === id);
@@ -33,9 +33,15 @@ export default defineComponent({
         description: '',
         repeats: []
       } as Workout;
+
+      store.commit('addWorkout', workout);
+      workout = this.$store.state.workouts.find((e: Workout) => e.id === id) as Workout;
+
+    } else {
+      workout = workout as Workout;
     }
 
-    const workoutModel = {...workout};
+    const workoutModel = workout;
     const workoutRepeats = workout.repeats;
 let newRepeatWeight = 1;
     return {
@@ -103,22 +109,15 @@ let newRepeatWeight = 1;
           </v-btn>
         </template>
 
-        <v-text-field
-          v-model="newRepeatWeight"
-          label="Вес"
-        />
+        <br>
         <v-btn
           @click="$store.commit('addRepeat', {workout:workoutModel, repeat:{
-            weight: newRepeatWeight
+            weight: 5
           }})"
         >
           добавить подход
         </v-btn>
       </div>
-
-      <v-btn @click="saveWorkout">
-        Сохранить
-      </v-btn>
     </v-form>
   </v-container>
 </template>

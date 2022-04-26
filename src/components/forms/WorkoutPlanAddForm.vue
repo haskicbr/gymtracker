@@ -37,7 +37,7 @@ export default defineComponent({
         color="primary"
         @click="createWorkoutPlan"
       >
-        Добавить новый план тренировки
+        Добавить новый план тренировок
       </v-btn>
     </v-card-actions>
   </v-card>
