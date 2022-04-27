@@ -22,12 +22,12 @@ export default defineComponent({
     deleteWorkoutPlan(id: string) {
       this.$store.commit('deleteWorkoutPlan', id)
     },
-
     getPlanFormUrl(id: string) {
       return router.resolve({ name: 'workoutPlanForm', params: { id } })
     },
-    runWorkoutPlan() {
-
+    runWorkoutPlan(id: string) {
+      const url =  router.resolve({ name: 'workoutPlanRunning', params: { id } });
+      router.push(url);
     }
   }
 });

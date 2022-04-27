@@ -158,8 +158,8 @@ const store = createStore({
   modules: {}
 });
 
-setInterval(() => {
+window.addEventListener('beforeunload', () => {
   localStorage.setItem(storageName, JSON.stringify(store.state));
-}, 1000);
+});
 
 export default store;

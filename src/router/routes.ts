@@ -57,6 +57,12 @@ const routes: Array<CustomRouteRecordRaw> = [
     name: 'workoutPlanForm',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlan.vue'),
     isMainMenu:false,
+  },
+  {
+    path: '/workout-plan-running/:id',
+    name: 'workoutPlanRunning',
+    component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlanRunning.vue'),
+    isMainMenu:false,
   }
 ];
 export default routes;
