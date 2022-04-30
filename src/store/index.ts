@@ -30,12 +30,16 @@ let state: DogeGymState = {
       description: 'uid123123',
       repeats: [{
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }]
     }, {
       id: '2',
@@ -43,12 +47,16 @@ let state: DogeGymState = {
       description: 'uid123123',
       repeats: [{
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }]
     }, {
       id: '3',
@@ -56,12 +64,16 @@ let state: DogeGymState = {
       description: 'uid123123',
       repeats: [{
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }]
     },
     {
@@ -70,10 +82,13 @@ let state: DogeGymState = {
       description: 'uid123123',
       repeats: [{
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }, {
         weight: 10,
+        repeats: 10,
       }]
     }
   ]
@@ -149,10 +164,22 @@ const store = createStore({
       const index = state.workouts.findIndex(e => e.id === workout.id);
       state.workouts[index].repeats[repeatIndex].weight += 1;
     },
+
+    increaseRepeatCount(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
+      const index = state.workouts.findIndex(e => e.id === workout.id);
+      state.workouts[index].repeats[repeatIndex].repeats += 1;
+    },
     decreaseRepeat(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
       const index = state.workouts.findIndex(e => e.id === workout.id);
       state.workouts[index].repeats[repeatIndex].weight -= 1;
     },
+
+    decreaseRepeatCount(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
+      const index = state.workouts.findIndex(e => e.id === workout.id);
+      state.workouts[index].repeats[repeatIndex].repeats -= 1;
+    },
+
+
   },
   actions: {},
   modules: {}

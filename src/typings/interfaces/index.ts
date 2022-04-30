@@ -13,6 +13,7 @@ interface WorkoutGroup {
 
 interface WorkoutRepeat {
   weight: number;
+  repeats: number;
 }
 
 interface Workout {
@@ -20,6 +21,10 @@ interface Workout {
   title: string;
   description: string;
   repeats: WorkoutRepeat[];
+  isRepeated?:boolean;
+
+
+
   // Праметры для упражнения ( настройка сидения итп )
   additionalParams?: string[]
 }

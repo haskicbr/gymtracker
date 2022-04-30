@@ -34,8 +34,9 @@ const deleteWorkout = (id: string) => {
         v-for="workout in store.state.workouts"
         :key="workout.id"
         md="4"
+        sm="6"
         lg="3"
-        cols="6"
+        cols="12"
       >
         <v-card
           class="mx-auto"
@@ -52,6 +53,20 @@ const deleteWorkout = (id: string) => {
 
               <div class="text-caption">
                 <v-table style="width: 100%">
+                  <thead>
+                    <tr>
+                      <td class="text-center">
+                        Подход
+                      </td>
+                      <td class="text-center">
+                        Вес
+                      </td>
+                      <td class="text-center">
+                        Повторы
+                      </td>
+                    </tr>
+                  </thead>
+
                   <tbody>
                     <tr
                       v-for="(item, index) in workout.repeats"
@@ -63,6 +78,9 @@ const deleteWorkout = (id: string) => {
                       <td class="text-center">
                         {{ item.weight }} кг
                       </td>
+                      <td class="text-center">
+                        {{ item.repeats }}
+                      </td>
                     </tr>
                   </tbody>
                 </v-table>
@@ -71,30 +89,41 @@ const deleteWorkout = (id: string) => {
           </v-card-content>
 
           <v-card-actions>
-            <router-link
-              v-slot="{ navigate }"
-              custom
-              :to="'/workouts/' + workout.id"
-            >
+            <div class="card-action-btn-container">
+              <router-link
+                v-slot="{ navigate }"
+                custom
+                :to="'/workouts/' + workout.id"
+              >
+                <v-btn
+                  text
+                  color="primary"
+                  @click="navigate"
+                >
+                  Изменить
+                </v-btn>
+              </router-link>
+
               <v-btn
                 text
-                color="primary"
-                @click="navigate"
+                color="warning"
+                @click="deleteWorkout(workout.id)"
               >
-                Изменить
+                удалить
               </v-btn>
-            </router-link>
-
-            <v-btn
-              text
-              color="warning"
-              @click="deleteWorkout(workout.id)"
-            >
-              удалить
-            </v-btn>
+            </div>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style lang="scss">
+.card-action-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row
+}
+</style>

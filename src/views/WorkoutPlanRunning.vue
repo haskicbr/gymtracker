@@ -10,7 +10,6 @@ export default defineComponent({
 
   data() {
 
-
     const id = this.$route.params.id;
 
     const workoutPlan = this.$store.getters.getWorkoutPlanById(id);
@@ -28,6 +27,7 @@ export default defineComponent({
     const repeatTimer: any = null;
 
     return {
+      doge: require('@/assets/about.png'),
       isStartedRepeat: false,
       isStartedRest: false,
       repeatTimer,
@@ -61,6 +61,8 @@ export default defineComponent({
 
     completeRepeat() {
 
+      this.workoutRepeatCounter++;
+
       this.isStartedRepeat = false;
       this.isStartedRest = true;
 
@@ -71,7 +73,7 @@ export default defineComponent({
       const workout = this.workouts[this.workoutCounter] as Workout;
       const repeatsLength = workout.repeats.length;
 
-      if ((repeatsLength - 1) === this.workoutRepeatCounter) {
+      if ((repeatsLength) === this.workoutRepeatCounter) {
         this.workoutRepeatCounter = 0;
         if (!this.workouts[this.workoutCounter + 1]) {
           this.workoutPlanIsCompleted = true;
@@ -93,7 +95,6 @@ export default defineComponent({
 
       this.isStartedRepeat = true;
       this.isStartedRest = false;
-      this.workoutRepeatCounter += 1;
 
       clearInterval(this.restTimer);
 
@@ -114,25 +115,27 @@ export default defineComponent({
         width="100%"
         max-width="500"
       >
-        <v-img
-          height="200"
-          src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-          cover
-          class="text-white"
-        >
-          <v-layout full-height>
-            <v-app-bar
-              density="comfortable"
-              color="rgba(0, 0, 0, 0)"
-              flat
-              theme="dark"
+        <v-layout>
+          <div style="height: 175px">
+            <img
+              :src="doge"
+              class="doge--workout-plan"
             >
-              <v-app-bar-title class="text-h6">
-                {{ workoutPlan.title }}
-              </v-app-bar-title>
-            </v-app-bar>
-          </v-layout>
-        </v-img>
+          </div>
+
+
+          <v-app-bar
+            density="comfortable"
+            color="rgba(0, 0, 0, 0)"
+            flat
+            theme="dark"
+          >
+            <v-app-bar-title class="text-h6">
+              {{ workoutPlan.title }}
+            </v-app-bar-title>
+          </v-app-bar>
+        </v-layout>
+
 
         <v-card-text>
           <v-timeline
@@ -195,3 +198,50 @@ export default defineComponent({
     </v-row>
   </v-container>
 </template>
+
+<style lang="scss">
+.doge--workout-plan {
+  top: 150px;
+  position: absolute;
+  height: 500px;
+  animation: see-doge 5000ms infinite;
+}
+
+@keyframes see-doge {
+  0% {
+    top: 150px;
+  }
+  5% {
+    top: 0;
+  }
+  30% {
+    top: -25px;
+  }
+  40% {
+    top: 150px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+
+
+$a : 14px;
+
+/*
+
+@media screen and (min-width: 1280px) {
+  * {
+    font-size: 30px !important;
+  }
+}
+
+* {
+  font-size: $a;
+}*/
+
+
+</style>
+
+
+

@@ -53,7 +53,7 @@ export default defineComponent({
         :key="workoutPlan.id"
         md="4"
         lg="3"
-        cols="6"
+        cols="12"
       >
         <v-card
           class="mx-auto"
