@@ -15,6 +15,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'vue/no-v-model-argument': 'off',
     'vue/no-v-for-template-key': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'vue/no-unused-vars': 'off',
     //ue/no-v-for-template-key
   }, "parser": "vue-eslint-parser",
 

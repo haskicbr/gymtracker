@@ -101,3 +101,8 @@ export default defineComponent({
     </v-app>
   </v-theme-provider>
 </template>
+
+<style lang="scss">
+@import './styles/main';
+</style>
+
