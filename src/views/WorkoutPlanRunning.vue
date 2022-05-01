@@ -115,27 +115,17 @@ export default defineComponent({
         width="100%"
         max-width="500"
       >
-        <v-layout>
-          <div style="height: 175px">
-            <img
-              :src="doge"
-              class="doge--workout-plan"
-            >
-          </div>
+        <div
+          v-if="workoutPlanIsCompleted"
+          style="height: 175px"
+        >
+          <img
 
-
-          <v-app-bar
-            density="comfortable"
-            color="rgba(0, 0, 0, 0)"
-            flat
-            theme="dark"
+            :src="doge"
+            class="doge--workout-plan"
           >
-            <v-app-bar-title class="text-h6">
-              {{ workoutPlan.title }}
-            </v-app-bar-title>
-          </v-app-bar>
-        </v-layout>
-
+        </div>
+        <v-card-title>{{ workoutPlan.title }}</v-card-title>
 
         <v-card-text>
           <v-timeline
@@ -148,24 +138,36 @@ export default defineComponent({
               :dot-color="getWorkoutColor(workout)"
               size="x-small"
             >
-              <div class="mb-4">
+              <div class="mb-15">
                 <div class="font-weight-normal">
                   <strong>{{ workout.title }}</strong>
                 </div>
-                <div>{{ workout.description }}</div>
+                <div>
+                  {{ workout.description }}
+                </div>
               </div>
             </v-timeline-item>
           </v-timeline>
 
-          <div>
-            active repeat {{ workouts[workoutCounter].repeats[workoutRepeatCounter] }}
-          </div>
+          <template v-if="!workoutPlanIsCompleted">
+            <div class="text-h6">
+              Подход {{ workoutRepeatCounter +1 }}
+            </div>
+            <div class="text-h6">
+              Количество повторений {{ workouts[workoutCounter].repeats[workoutRepeatCounter].repeats }}
+            </div>
 
-          <template v-if="isStartedRest && !workoutPlanIsCompleted">
-            <h3>
-              Отдых {{ restTime }} сек
-            </h3>
+            <div class="text-h6">
+              Вес {{ workouts[workoutCounter].repeats[workoutRepeatCounter].weight }} КГ
+            </div>
+
+            <template v-if="isStartedRest && !workoutPlanIsCompleted">
+              <h3>
+                Отдых {{ restTime }} сек
+              </h3>
+            </template>
           </template>
+
 
 
           <template v-if="isStartedRepeat">
@@ -176,15 +178,19 @@ export default defineComponent({
         </v-card-text>
 
         <v-card-actions>
-          <h1 v-if="workoutPlanIsCompleted ">
-            completed!
-          </h1>
+          <h3
+            v-if="workoutPlanIsCompleted "
+            class="text-center"
+            style="width: 100%"
+          >
+            Тренировка окончена
+          </h3>
 
           <v-btn
             v-if="!workoutPlanIsCompleted && !isStartedRepeat"
             @click="startNextRepeat"
           >
-            {{ workoutRepeatCounter }} Начать подход
+            Начать подход
           </v-btn>
 
           <v-btn
@@ -201,10 +207,10 @@ export default defineComponent({
 
 <style lang="scss">
 .doge--workout-plan {
-  top: 150px;
+  top: -25px;
   position: absolute;
   height: 500px;
-  animation: see-doge 5000ms infinite;
+  animation: see-doge 5000ms;
 }
 
 @keyframes see-doge {
@@ -217,11 +223,13 @@ export default defineComponent({
   30% {
     top: -25px;
   }
-  40% {
-    top: 150px;
+
+  75% {
+    top:-50px;
   }
+
   100% {
-    top: 150px;
+    top:-25px;
   }
 }
 

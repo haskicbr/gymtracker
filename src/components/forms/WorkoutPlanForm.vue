@@ -104,18 +104,6 @@ export default defineComponent({
         tile
       >
         <v-list-item>
-          <v-list-item-header>
-            <v-list-item-title>Single-line item</v-list-item-title>
-          </v-list-item-header>
-        </v-list-item>
-
-        <v-list-item two-line>
-          <v-list-item-header>
-            <v-list-item-title>Two-line item</v-list-item-title>
-            <v-list-item-subtitle/>
-          </v-list-item-header>
-        </v-list-item>
-        <v-list-item>
           <v-text-field
             v-model="workoutPlan.title"
             color="primary"
@@ -134,6 +122,13 @@ export default defineComponent({
         </v-list-item>
 
 
+        <v-list-item class="mt-5">
+          <v-list-item-header>
+            <v-list-item-title>Упражнения:</v-list-item-title>
+          </v-list-item-header>
+        </v-list-item>
+
+
         <v-list-item
           v-for="(option,index) in workoutPlan.workouts"
           :key="option.id"
@@ -141,13 +136,11 @@ export default defineComponent({
         >
           <template v-if="checkWorkoutInPlan(option.id)">
             <v-list-item-header>
-              <v-list-item-title>{{ $store.getters.getWorkoutById(option.id).title }}</v-list-item-title>
+              <v-list-item-title>{{ $store.getters.getWorkoutById(option.id)?.title }}</v-list-item-title>
               <v-list-item-subtitle>
-                {{ $store.getters.getWorkoutById(option.id).description }}
+                {{ $store.getters.getWorkoutById(option.id)?.description }}
               </v-list-item-subtitle>
-              <v-list-item-subtitle>
-                consectetur adipiscing elit.
-              </v-list-item-subtitle>
+              <v-list-item-subtitle />
             </v-list-item-header>
             <v-btn
               :disabled="index === (workoutPlan.workouts.length -1)"

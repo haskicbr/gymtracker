@@ -56,6 +56,7 @@ export default defineComponent({
         cols="12"
       >
         <v-card
+          style="max-width: 400px"
           class="mx-auto"
         >
           <v-card-content>

@@ -28,6 +28,7 @@ export default defineComponent({
 
 <template>
   <v-card
+    style="max-width: 400px;"
     class="mx-auto"
   >
     <v-card-actions>

@@ -86,7 +86,6 @@ export default defineComponent({
         />
         <div>
           Подходы:
-
           <v-btn
             @click="$store.commit('addRepeat', {workout:workoutModel, repeat:{
               weight: 5,
@@ -208,7 +207,7 @@ export default defineComponent({
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .workout-param__input {
   text-align: center;
@@ -224,11 +223,9 @@ export default defineComponent({
   outline: gray
 }
 
-
 .workout-param__description {
   width: 120px;
 }
-
 
 .v-table > .v-table__wrapper > table > tbody > tr > td, .v-table > .v-table__wrapper > table > tbody > tr > th, .v-table > .v-table__wrapper > table > thead > tr > td, .v-table > .v-table__wrapper > table > thead > tr > th, .v-table > .v-table__wrapper > table > tfoot > tr > td, .v-table > .v-table__wrapper > table > tfoot > tr > th {
   padding: 0px 4px;

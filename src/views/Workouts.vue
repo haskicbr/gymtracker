@@ -6,6 +6,7 @@ import { useStore } from 'vuex';
 import { useRoute, useRouter } from "vue-router";
 import { createWebHashHistory } from "vue-router";
 import WorkoutAddForm from "@/components/forms/WorkoutAddForm.vue";
+import WorkoutListView from "@/components/workout/WorkoutListView.vue";
 
 
 const store = useStore();
@@ -14,7 +15,6 @@ const route = useRoute();
 const deleteWorkout = (id: string) => {
   store.commit('deleteWorkout', id);
 }
-
 </script>
 
 <template>
@@ -38,82 +38,7 @@ const deleteWorkout = (id: string) => {
         lg="3"
         cols="12"
       >
-        <v-card
-          class="mx-auto"
-        >
-          <v-card-content>
-            <div>
-              <div class="text-overline mb-1">
-                {{ workout.title }}
-              </div>
-              <div class="text-h6 mb-1" />
-              <div class="text-caption">
-                {{ workout.description }}
-              </div>
-
-              <div class="text-caption">
-                <v-table style="width: 100%">
-                  <thead>
-                    <tr>
-                      <td class="text-center">
-                        Подход
-                      </td>
-                      <td class="text-center">
-                        Вес
-                      </td>
-                      <td class="text-center">
-                        Повторы
-                      </td>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in workout.repeats"
-                      :key="index"
-                    >
-                      <td class="text-center">
-                        {{ index + 1 }}
-                      </td>
-                      <td class="text-center">
-                        {{ item.weight }} кг
-                      </td>
-                      <td class="text-center">
-                        {{ item.repeats }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-table>
-              </div>
-            </div>
-          </v-card-content>
-
-          <v-card-actions>
-            <div class="card-action-btn-container">
-              <router-link
-                v-slot="{ navigate }"
-                custom
-                :to="'/workouts/' + workout.id"
-              >
-                <v-btn
-                  text
-                  color="primary"
-                  @click="navigate"
-                >
-                  Изменить
-                </v-btn>
-              </router-link>
-
-              <v-btn
-                text
-                color="warning"
-                @click="deleteWorkout(workout.id)"
-              >
-                удалить
-              </v-btn>
-            </div>
-          </v-card-actions>
-        </v-card>
+        <WorkoutListView :workout="workout" />
       </v-col>
     </v-row>
   </v-container>

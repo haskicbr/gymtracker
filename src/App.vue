@@ -83,6 +83,16 @@ export default defineComponent({
           style="margin: 0 auto"
         >
           <v-app-bar-nav-icon
+            icon="mdi-dumbbell"
+            variant="text"
+            @click.stop="$router.push({name: 'workouts' })"
+          />
+          <v-app-bar-nav-icon
+            icon="mdi-weight-lifter"
+            variant="text"
+            @click.stop="$router.push({name: 'workoutPlans' })"
+          />
+          <v-app-bar-nav-icon
             variant="text"
             @click.stop="drawer = !drawer"
           />

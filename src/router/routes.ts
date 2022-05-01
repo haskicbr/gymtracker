@@ -14,14 +14,14 @@ const routes: Array<CustomRouteRecordRaw> = [
   },
   {
     title: 'Тренировочки',
-    icon: 'mdi-view-dashboard',
+    icon: 'mdi-weight-lifter',
     path: '/workout-plans',
     name: 'workoutPlans',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlans.vue'),
     isMainMenu:true,
   },  {
     title: 'Упражнения',
-    icon: 'mdi-view-dashboard',
+    icon: 'mdi-dumbbell',
     path: '/workouts',
     name: 'workouts',
     component: () => import(/* webpackChunkName: "about" */ '../views/Workouts.vue'),
