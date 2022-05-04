@@ -27,6 +27,9 @@ export default defineComponent({
     },
     runWorkoutPlan(id: string) {
       const url =  router.resolve({ name: 'workoutPlanRunning', params: { id } });
+
+      this.$store.commit('setWorkoutPlanActive', id);
+
       router.push(url);
     }
   }

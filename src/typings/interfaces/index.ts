@@ -22,16 +22,21 @@ interface Workout {
   description: string;
   repeats: WorkoutRepeat[];
   isRepeated?:boolean;
-
-
-
   // Праметры для упражнения ( настройка сидения итп )
   additionalParams?: string[]
 }
 
+
+interface Settings {
+  weightStep: number;
+}
+
 interface DogeGymState {
+  workoutPlanStarted: boolean;
+  workoutPlanActiveId?: string;
   workoutPlans: WorkoutPlan[];
   workouts: Workout[];
+  settings: Settings
 }
 
 interface DogeGymGetters {

@@ -12,6 +12,13 @@ const storageState = JSON.parse(storageString);
 
 let state: DogeGymState = {
 
+  settings: {
+    weightStep: 1.25
+  },
+
+
+  workoutPlanStarted: false,
+  workoutPlanActiveId: undefined,
   workoutPlans: [
     /*    {
 
@@ -96,7 +103,14 @@ let state: DogeGymState = {
 
 
 if (storageState) {
-  state = storageState;
+
+  if (!storageState.settings) {
+    storageState.settings = state.settings;
+  }
+
+  state = { ...storageState };
+
+
 }
 
 const store = createStore({
@@ -117,7 +131,6 @@ const store = createStore({
     }
   },
   mutations: {
-
     addWorkoutPlan(state, workoutPlan: WorkoutPlan) {
       state.workoutPlans.push(workoutPlan);
     },
@@ -126,7 +139,6 @@ const store = createStore({
       const index = state.workoutPlans.findIndex(e => workoutPlan.id === e.id);
       state.workoutPlans[index] = workoutPlan;
     },
-
 
     addWorkout(state, workout: Workout) {
       state.workouts.push(workout);
@@ -162,7 +174,7 @@ const store = createStore({
 
     increaseRepeat(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
       const index = state.workouts.findIndex(e => e.id === workout.id);
-      state.workouts[index].repeats[repeatIndex].weight += 1;
+      state.workouts[index].repeats[repeatIndex].weight += state.settings.weightStep;
     },
 
     increaseRepeatCount(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
@@ -171,7 +183,7 @@ const store = createStore({
     },
     decreaseRepeat(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
       const index = state.workouts.findIndex(e => e.id === workout.id);
-      state.workouts[index].repeats[repeatIndex].weight -= 1;
+      state.workouts[index].repeats[repeatIndex].weight -= state.settings.weightStep;
     },
 
     decreaseRepeatCount(state, { workout, repeatIndex }: { workout: Workout, repeatIndex: number }) {
@@ -179,6 +191,15 @@ const store = createStore({
       state.workouts[index].repeats[repeatIndex].repeats -= 1;
     },
 
+    setWorkoutPlanActive(state, id: string) {
+      state.workoutPlanStarted = true;
+      state.workoutPlanActiveId = id;
+    },
+
+    setWorkoutPlanInActive(state) {
+      state.workoutPlanStarted = false;
+      state.workoutPlanActiveId = undefined;
+    },
 
   },
   actions: {},
@@ -187,6 +208,13 @@ const store = createStore({
 
 window.addEventListener('beforeunload', () => {
   localStorage.setItem(storageName, JSON.stringify(store.state));
+});
+
+window.addEventListener("load",function() {
+  setTimeout(function(){
+    // This hides the address bar:
+    window.scrollTo(0, 1);
+  }, 0);
 });
 
 export default store;

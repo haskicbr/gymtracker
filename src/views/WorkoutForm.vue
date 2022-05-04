@@ -70,140 +70,139 @@ export default defineComponent({
 
 
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-text-field
-          v-model="workoutModel.title"
-          color="primary"
-          label="Заголовок"
-        />
+  <v-card
+    class="mx-auto mt-10"
+    max-width="400"
+    tile
+  >
+    <v-card-content>
+      <v-text-field
+        v-model="workoutModel.title"
+        color="primary"
+        label="Название упражнения"
+      />
 
-        <v-text-field
-          v-model="workoutModel.description"
-          color="primary"
-          label="Описание"
-        />
-        <div>
-          Подходы:
+      <v-text-field
+        v-model="workoutModel.description"
+        color="primary"
+        label="Описание"
+      />
+      <div>
+        Подходы:
+        <v-btn
+          @click="$store.commit('addRepeat', {workout:workoutModel, repeat:{
+            weight: 5,
+            repeats: 10
+          }})"
+        >
+          +
+        </v-btn>
+
+        <template v-if="workoutRepeats.length > 0">
           <v-btn
-            @click="$store.commit('addRepeat', {workout:workoutModel, repeat:{
-              weight: 5,
-              repeats: 10
-            }})"
+            style="margin-left: 10px"
+            @click="$store.commit('deleteRepeat', {workout:workoutModel, repeatIndex:workoutRepeats.length-1})"
           >
-            +
+            -
           </v-btn>
-
-          <template v-if="workoutRepeats.length > 0">
-            <v-btn
-              style="margin-left: 10px"
-              @click="$store.commit('deleteRepeat', {workout:workoutModel, repeatIndex:workoutRepeats.length-1})"
-            >
-              -
-            </v-btn>
-          </template>
+        </template>
 
 
-          <br>
-          <br>
-          <v-table
-
-            height="300px"
-          >
-            <thead>
-              <tr>
-                <th
-                  colspan="3"
-                  class="text-center"
-                >
-                  вес
-                </th>
-                <th
-                  colspan="3"
-                  class="text-center"
-                >
-                  повторения
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <template
-                v-for="(repeat, index) in workoutRepeats"
-                :key="index"
+        <br>
+        <br>
+        <v-table>
+          <thead>
+            <tr>
+              <th
+                colspan="3"
+                class="text-center"
               >
-                <tr>
-                  <td style="width: 30px">
-                    <v-btn
-                      size="x-small"
-                      @click="$store.commit('decreaseRepeat', {workout:workoutModel, repeatIndex:index})"
+                вес
+              </th>
+              <th
+                colspan="3"
+                class="text-center"
+              >
+                повторения
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <template
+              v-for="(repeat, index) in workoutRepeats"
+              :key="index"
+            >
+              <tr>
+                <td style="width: 30px">
+                  <v-btn
+                    size="x-small"
+                    @click="$store.commit('decreaseRepeat', {workout:workoutModel, repeatIndex:index})"
+                  >
+                    <v-icon
+                      color="red"
                     >
-                      <v-icon
-                        color="red"
-                      >
-                        mdi-minus
-                      </v-icon>
-                    </v-btn>
-                  </td>
-                  <td>
-                    <input
-                      v-model="repeat.weight"
-                      class="workout-param__input"
-                      type="number"
+                      mdi-minus
+                    </v-icon>
+                  </v-btn>
+                </td>
+                <td>
+                  <input
+                    v-model="repeat.weight"
+                    class="workout-param__input"
+                    type="number"
+                  >
+                </td>
+                <td style="width: 30px">
+                  <v-btn
+                    size="x-small"
+                    @click="$store.commit('increaseRepeat', {workout:workoutModel, repeatIndex:index})"
+                  >
+                    <v-icon
+                      color="green"
                     >
-                  </td>
-                  <td style="width: 30px">
-                    <v-btn
-                      size="x-small"
-                      @click="$store.commit('increaseRepeat', {workout:workoutModel, repeatIndex:index})"
-                    >
-                      <v-icon
-                        color="green"
-                      >
-                        mdi-plus
-                      </v-icon>
-                    </v-btn>
-                  </td>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
+                </td>
 
-                  <td style="width: 30px">
-                    <v-btn
-                      size="x-small"
-                      @click="$store.commit('decreaseRepeatCount', {workout:workoutModel, repeatIndex:index})"
+                <td style="width: 30px">
+                  <v-btn
+                    size="x-small"
+                    @click="$store.commit('decreaseRepeatCount', {workout:workoutModel, repeatIndex:index})"
+                  >
+                    <v-icon
+                      color="red"
                     >
-                      <v-icon
-                        color="red"
-                      >
-                        mdi-minus
-                      </v-icon>
-                    </v-btn>
-                  </td>
-                  <td>
-                    <input
-                      v-model="repeat.repeats"
-                      class="workout-param__input"
-                      type="number"
+                      mdi-minus
+                    </v-icon>
+                  </v-btn>
+                </td>
+                <td>
+                  <input
+                    v-model="repeat.repeats"
+                    class="workout-param__input"
+                    type="number"
+                  >
+                </td>
+                <td style="width: 30px">
+                  <v-btn
+                    size="x-small"
+                    @click="$store.commit('increaseRepeatCount', {workout:workoutModel, repeatIndex:index})"
+                  >
+                    <v-icon
+                      color="green"
                     >
-                  </td>
-                  <td style="width: 30px">
-                    <v-btn
-                      size="x-small"
-                      @click="$store.commit('increaseRepeatCount', {workout:workoutModel, repeatIndex:index})"
-                    >
-                      <v-icon
-                        color="green"
-                      >
-                        mdi-plus
-                      </v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </v-table>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </v-table>
+      </div>
+    </v-card-content>
+  </v-card>
 </template>
 
 
