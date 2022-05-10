@@ -1,3 +1,5 @@
 {
+  "short_name": "DogeGym app",
+  "name": "DogeGym app",
   "display": "standalone"
 }
