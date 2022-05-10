@@ -21,9 +21,10 @@ jobs:
           node-version: '16'
       - name: Build
         working-directory: ./
-        run: mkdir dist
-          | touch dist/index.html
-          | date >> dist/index.html
+        run: | 
+          mkdir dist | 
+          touch dist/index.html | 
+          date >> dist/index.html
 
       - name: Prepare SSH key
         uses: shimataro/ssh-key-action@v2
