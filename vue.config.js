@@ -1,4 +1,5 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service');
+
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
@@ -14,6 +15,10 @@ module.exports = defineConfig({
   configureWebpack: {
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" }
-    }
+    },
+  },
+  pwa: {
+    InjectManifest: "InjectManifest"
   }
-})
+});
+
