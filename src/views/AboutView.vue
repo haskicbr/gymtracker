@@ -25,9 +25,6 @@
             class="text-blue text-decoration-none"
           >Мы в телеграмм <v-icon>mdi-telegram</v-icon></a>
         </p>
-        https://t.me/dogegymapp
-        v-
-
         <br>
 
         <pre class="text-center" />
