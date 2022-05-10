@@ -9,8 +9,9 @@ const routes: Array<CustomRouteRecordRaw> = [
     icon: 'mdi-view-dashboard',
     path: '/',
     name: 'home',
-    component: HomeView,
-    isMainMenu:true,
+    redirect: '/workout-plans',
+    //component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlans.vue'),
+    isMainMenu:false,
   },
   {
     title: 'Тренировочки',
@@ -49,7 +50,7 @@ const routes: Array<CustomRouteRecordRaw> = [
     path: '/test',
     name: 'test',
     component: () => import(/* webpackChunkName: "about" */ '../views/TestComponent.vue'),
-    isMainMenu:true,
+    isMainMenu:false,
   },
   {
     icon: 'mdi-view-dashboard',

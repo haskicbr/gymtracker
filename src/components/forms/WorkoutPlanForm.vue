@@ -41,7 +41,7 @@ export default defineComponent({
     });
 
 
-    const checkedWorkoutIds: { id: string, order: number }[] = workoutPlan.workouts;
+    const checkedWorkoutIds: string[] = workoutPlan.workouts;
 
     return {
       workoutPlan,
@@ -56,18 +56,18 @@ export default defineComponent({
   methods: {
 
     checkWorkoutInPlan(checkId: string) {
-      return this.workoutPlan.workouts.find(({ id }: { id: string, order: number }) => id === checkId);
+      return this.workoutPlan.workouts.find(id => id === checkId);
     },
 
     checkWorkout(workoutId: string) {
 
       const ids = this.checkedWorkoutIds;
-      const index = ids.findIndex(({ id }) => id === workoutId);
+      const index = ids.findIndex((id) => id === workoutId);
 
       if (index >= 0) {
         ids.splice(index, 1)
       } else {
-        ids.push({ id: workoutId, order: 0 });
+        ids.push(workoutId);
       }
 
       this.workoutPlan.workouts = ids;
@@ -78,16 +78,16 @@ export default defineComponent({
       router.push({ path: '/workout-plans' });
     },
 
-    workoutOrderDown(options: { id: string, order: number }) {
-      const arr: Workout[] = this.workoutPlan.workouts;
-      const sortedIndex = arr.findIndex(e => e.id === options.id);
+    workoutOrderDown(id: string) {
+      const arr: string[] = this.workoutPlan.workouts;
+      const sortedIndex = arr.findIndex(e => e === id);
       const newArr = arr.splice(sortedIndex, 1);
       arr.splice(sortedIndex + 1, 0, newArr[0]);
     },
 
-    workoutOrderUp(options: { id: string, order: number }) {
-      const arr: Workout[] = this.workoutPlan.workouts;
-      const sortedIndex = arr.findIndex(e => e.id === options.id);
+    workoutOrderUp(id: string) {
+      const arr: string[] = this.workoutPlan.workouts;
+      const sortedIndex = arr.findIndex(e => e === id);
       const newArr = arr.splice(sortedIndex, 1);
       arr.splice(sortedIndex - 1, 0, newArr[0]);
     }
@@ -130,15 +130,15 @@ export default defineComponent({
 
 
         <v-list-item
-          v-for="(option,index) in workoutPlan.workouts"
-          :key="option.id"
+          v-for="(id,index) in workoutPlan.workouts"
+          :key="id"
           three-line
         >
-          <template v-if="checkWorkoutInPlan(option.id)">
+          <template v-if="checkWorkoutInPlan(id)">
             <v-list-item-header>
-              <v-list-item-title>{{ $store.getters.getWorkoutById(option.id)?.title }}</v-list-item-title>
+              <v-list-item-title>{{ $store.getters.getWorkoutById(id)?.title }}</v-list-item-title>
               <v-list-item-subtitle>
-                {{ $store.getters.getWorkoutById(option.id)?.description }}
+                {{ $store.getters.getWorkoutById(id)?.description }}
               </v-list-item-subtitle>
               <v-list-item-subtitle />
             </v-list-item-header>
@@ -147,21 +147,21 @@ export default defineComponent({
               variant="text"
               color="grey"
               :icon="'mdi-chevron-down'"
-              @click.stop="workoutOrderDown(option)"
+              @click.stop="workoutOrderDown(id)"
             />
             <v-btn
               :disabled="index === 0"
               variant="text"
               color="grey"
               :icon="'mdi-chevron-up'"
-              @click.stop="workoutOrderUp(option)"
+              @click.stop="workoutOrderUp(id)"
             />
             <v-list-item-avatar end>
               <v-btn
                 variant="text"
-                :color="checkWorkoutInPlan(option.id) ? 'primary' : 'grey '"
-                :icon="checkWorkoutInPlan(option.id) ? activeIcon : defaultIcon"
-                @click.stop="checkWorkout(option.id)"
+                :color="checkWorkoutInPlan(id) ? 'primary' : 'grey '"
+                :icon="checkWorkoutInPlan(id) ? activeIcon : defaultIcon"
+                @click.stop="checkWorkout(id)"
               />
             </v-list-item-avatar>
           </template>

@@ -3,6 +3,7 @@
 import TestInput from "@/components/test-components/TestInput.vue";
 
 import { defineComponent } from 'vue'
+import { StateCSVService } from "@/services";
 
 export default defineComponent({
   name: "TestComponent",
@@ -23,6 +24,14 @@ export default defineComponent({
   methods: {
     testEventEmit() {
       (<HTMLElement>this.$refs.testEventRef).innerHTML = (new Date()).toString();
+    },
+
+
+    async sendTestRequest() {
+      const response = await StateCSVService.uploadState(this.$store.state);
+
+
+      console.log(response);
     }
   }
 
@@ -52,6 +61,11 @@ export default defineComponent({
           v-model:title="user.password"
           @testEvent="testEventEmit"
         />
+
+
+        <v-btn @click="sendTestRequest">
+          send REQUEST
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>

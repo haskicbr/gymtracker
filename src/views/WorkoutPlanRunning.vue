@@ -11,11 +11,15 @@ export default defineComponent({
     const id = this.$route.params.id;
 
     const workoutPlan = this.$store.getters.getWorkoutPlanById(id);
-    const workoutIds = workoutPlan.workouts.map(e => e.id);
+    const workoutIds = workoutPlan.workouts;
     const workouts: Workout[] = [];
 
     workoutIds.forEach(id => {
       const workout = this.$store.getters.getWorkoutById(id) as Workout;
+      if (workout?.repeats && workout.repeats.length < 1) {
+        return;
+      }
+
       workouts.push(workout);
     });
 

@@ -20,81 +20,100 @@ let state: DogeGymState = {
   workoutPlanStarted: false,
   workoutPlanActiveId: undefined,
   workoutPlans: [
-    /*    {
-
-          id: '1',
-          title : 'Monday plan',
-          description :'Every monday',
-          workouts: []
-
-        }*/
+    {
+      id: '1',
+      title: 'Тренировочка в понедельник',
+      description: 'DEMO',
+      workouts: ['1', '2', '3']
+    },
+    {
+      id: '2',
+      title: 'Тренировочка в среду',
+      description: 'DEMO',
+      workouts: ['4','5']
+    },
   ],
 
   workouts: [
     {
       id: '1',
       title: 'Жим лежа',
-      description: 'uid123123',
+      description: '',
       repeats: [{
-        weight: 10,
+        weight: 50,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 50,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 50,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 50,
         repeats: 10,
       }]
     }, {
       id: '2',
-      title: 'Жим лежа',
-      description: 'uid123123',
+      title: 'Разводка',
+      description: 'Угол 45 градусов',
       repeats: [{
-        weight: 10,
+        weight: 5,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 5,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 5,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 5,
         repeats: 10,
       }]
     }, {
       id: '3',
-      title: 'Жим лежа',
-      description: 'uid123123',
+      title: 'Тяга блока трицепс',
+      description: 'Веревочка',
       repeats: [{
-        weight: 10,
-        repeats: 10,
+        weight: 7.5,
+        repeats: 16,
       }, {
-        weight: 10,
-        repeats: 10,
+        weight: 7.5,
+        repeats: 16,
       }, {
-        weight: 10,
-        repeats: 10,
+        weight: 7.5,
+        repeats: 16,
       }, {
-        weight: 10,
-        repeats: 10,
+        weight: 7.5,
+        repeats: 16,
       }]
     },
     {
       id: '4',
-      title: 'Приседания со штангой',
-      description: 'uid123123',
+      title: 'Подтягивания',
+      description: 'Узкий хват',
       repeats: [{
-        weight: 10,
+        weight: 0,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 0,
         repeats: 10,
       }, {
-        weight: 10,
+        weight: 0,
+        repeats: 10,
+      }]
+    },
+    {
+      id: '5',
+      title: 'Становая тяга',
+      description: '',
+      repeats: [{
+        weight: 40,
+        repeats: 10,
+      }, {
+        weight: 40,
+        repeats: 10,
+      }, {
+        weight: 40,
         repeats: 10,
       }]
     }
@@ -150,6 +169,19 @@ const store = createStore({
     },
 
     deleteWorkout(state, id: string) {
+
+      let breakDelete = false;
+
+      state.workoutPlans.forEach(workoutPlan => {
+        if(workoutPlan.workouts.includes(id)) {
+          breakDelete = true;
+        }
+      });
+
+      if (breakDelete) {
+        return;
+      }
+
       const index = state.workouts.findIndex(e => e.id === id);
       if (index > -1) {
         state.workouts.splice(index, 1);
@@ -207,7 +239,7 @@ const store = createStore({
 });
 
 window.addEventListener('beforeunload', () => {
-  localStorage.setItem(storageName, JSON.stringify(store.state));
+  //localStorage.setItem(storageName, JSON.stringify(store.state));
 });
 
 window.addEventListener("load",function() {

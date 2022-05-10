@@ -4,6 +4,7 @@
 import { defineComponent } from "vue";
 import router from "@/router";
 import WorkoutPlanAddForm from "@/components/forms/WorkoutPlanAddForm.vue";
+import { WorkoutPlan } from "@/typings/interfaces";
 
 export default defineComponent({
   name: "WorkoutPlans",
@@ -18,6 +19,23 @@ export default defineComponent({
   },
 
   methods: {
+
+
+    isAvailableWorkoutPlanToRun(workoutPlan: WorkoutPlan) {
+      if (workoutPlan.workouts.length === 0) {
+        return false;
+      }
+
+      let isAvailable = true;
+
+      workoutPlan.workouts.forEach(id => {
+        const workout = this.$store.getters.getWorkoutById(id);
+        if (workout.repeats.length === 0) {
+          isAvailable = false;
+        }
+      });
+      return isAvailable;
+    },
 
     deleteWorkoutPlan(id: string) {
       this.$store.commit('deleteWorkoutPlan', id)
@@ -79,12 +97,12 @@ export default defineComponent({
                 <v-table style="width: 100%">
                   <tbody>
                     <tr
-                      v-for="(item, index) in workoutPlan.workouts"
-                      :key="index"
+                      v-for="(id, index) in workoutPlan.workouts"
+                      :key="id"
                     >
                       <td class="text-center">
-                        {{ $store.getters.getWorkoutById(item?.id)?.title }}
-                        {{ $store.getters.getWorkoutById(item?.id)?.description }}
+                        {{ $store.getters.getWorkoutById(id)?.title }}
+                        {{ $store.getters.getWorkoutById(id)?.description }}
                       </td>
                     </tr>
                   </tbody>
@@ -119,6 +137,7 @@ export default defineComponent({
 
           <v-card-actions>
             <v-btn
+              v-if="isAvailableWorkoutPlanToRun(workoutPlan)"
               width="100%"
               text
               color="primary"
