@@ -3,21 +3,33 @@
     <v-row>
       <v-col>
         <div class="about text-center">
-          <h1>Приложение dogegym</h1>
+          <div class="logo__title__container">
+            <h1 class="text-center logo__title text-uppercase">
+              DogeGym - to be strong
+            </h1>
+          </div>
         </div>
 
         <p class="text-center">
-          Это приложение поможет записывать все спортивные достижения
+          Это приложение поможет записывать ваши тренировочки
         </p>
 
         <p class="text-center">
-          Выгружать результаты в exel таблицы, изменять их и загружать их обратно
+          Выгружать результаты в exel таблицы, изменять  и загружать их обратно
         </p>
+
+        <p class="text-center">
+          <a
+            href="https://t.me/dogegymapp"
+            target="_blank"
+            class="text-blue text-decoration-none"
+          >Мы в телеграмм <v-icon>mdi-telegram</v-icon></a>
+        </p>
+        https://t.me/dogegymapp
+        v-
 
         <br>
-        <p class="text-center">
-          Ничего лишнего, только тренировки и DOGE
-        </p>
+
         <pre class="text-center" />
       </v-col>
     </v-row>
@@ -28,21 +40,12 @@
         lg="4"
       >
         <div class="home">
-          <div class="logo__title__container">
-            <h1 class="text-center logo__title">
-              DOGE GYM - TO BE STRONG
-            </h1>
-          </div>
-
           <div class="quotes">
             <h3 class="text-left">
               Yesterday I thought tomorrow would be today
             </h3>
             <h3 class="text-right">
               Not everyone can look to tomorrow
-            </h3>
-            <h3 class="text-center">
-              No one will ever come back in 2007
             </h3>
           </div>
 
@@ -67,7 +70,7 @@
 </template>
 
 
-<script lang="ts" setup >
+<script lang="ts" setup>
 const doge  = require('@/assets/about.png');
 </script>
 
