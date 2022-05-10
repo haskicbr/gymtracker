@@ -18,6 +18,8 @@ module.exports = defineConfig({
     },
   },
   pwa: {
+    name: 'Dogegym app',
+    short_name: 'Dogegym app',
     InjectManifest: "InjectManifest"
   }
 });
