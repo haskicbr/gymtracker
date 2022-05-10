@@ -239,7 +239,7 @@ const store = createStore({
 });
 
 window.addEventListener('beforeunload', () => {
-  //localStorage.setItem(storageName, JSON.stringify(store.state));
+  localStorage.setItem(storageName, JSON.stringify(store.state));
 });
 
 window.addEventListener("load",function() {
