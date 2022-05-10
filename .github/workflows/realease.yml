@@ -30,7 +30,7 @@ jobs:
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-          ssh-host: ${HOST}
+          ssh-host: 45.67.59.104
 
       - name: copy files
         run: |
