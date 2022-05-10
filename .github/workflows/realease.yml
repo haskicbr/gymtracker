@@ -19,10 +19,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Install dependencies
-        working-directory: ./
-        run: npm install
-
       - name: Build
         working-directory: ./
         run: touch dist
