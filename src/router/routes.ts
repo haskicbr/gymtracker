@@ -36,6 +36,14 @@ const routes: Array<CustomRouteRecordRaw> = [
     isMainMenu:false,
   },
   {
+    title: 'Импорт/экспорт',
+    path: '/import-export',
+    name: 'ImportExport',
+    icon: 'mdi-swap-horizontal-circle-outline',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ImportExport.vue'),
+    isMainMenu:true,
+  },
+  {
     title: 'О приложении',
     icon: 'mdi-view-dashboard',
     path: '/about',
