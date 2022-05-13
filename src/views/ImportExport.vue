@@ -63,7 +63,7 @@ export default defineComponent({
       const response = await ConvertStateService.convertToCSV(this.$store.state);
       const csv = response.data as BlobPart;
       const a = window.document.createElement('a');
-      a.href = window.URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.href = window.URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf8' }));
       a.download = 'План тренировок.csv';
       document.body.appendChild(a);
       a.click();
