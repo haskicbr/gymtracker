@@ -25,8 +25,8 @@ module.exports = defineConfig({
 
   chainWebpack: config => {
     config.output
-      .filename(`js/[name].[contenthash:8].${Date.now()}.js`)
-      .chunkFilename(`js/[name].[contenthash:8].${Date.now()}.js`)
+      .filename(`js/[name].[contenthash:8].${Date.now()}.js?date=${Date.now()}`)
+      .chunkFilename(`js/[name].[contenthash:8].${Date.now()}.js?date=${Date.now()}`)
   },
 
   css: {
