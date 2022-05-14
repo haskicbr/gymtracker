@@ -19,14 +19,14 @@ const routes: Array<CustomRouteRecordRaw> = [
     path: '/workout-plans',
     name: 'workoutPlans',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlans.vue'),
-    isMainMenu:true,
+    isMainMenu:false,
   },  {
     title: 'Упражнения',
     icon: 'mdi-dumbbell',
     path: '/workouts',
     name: 'workouts',
     component: () => import(/* webpackChunkName: "about" */ '../views/Workouts.vue'),
-    isMainMenu:true,
+    isMainMenu:false,
   },
   {
     icon: 'mdi-view-dashboard',
