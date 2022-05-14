@@ -81,54 +81,82 @@ export default defineComponent({
   <v-container style="max-width: 600px">
     <v-row>
       <v-col cols="12">
-        <v-btn
-          class="v-btn--block"
-          @click="downloadCSV"
-        >
-          Скачать план тренировок
-        </v-btn>
-      </v-col>
-
-      <v-col cols="12">
-        <v-btn
-          class="v-btn--block"
-          @click="createShareLink"
-        >
-          Получить ссылку на план тренировок
-        </v-btn>
-
-        <div class="text-center ma-2">
-          <v-snackbar
-            v-model="snackbar"
-            :top="true"
+        <br>
+        <div>
+          <v-alert
+            color="none"
+            theme="dark"
+            icon="mdi-share-all"
+            density="compact"
           >
-            <div class="text-white">
-              Ссылка скопирована {{ sharedLink }}
+            <div>
+              Чтобы использовать текущий план тренировок на других устройствах скопируйте ссылку и перейдите по ней на другом устройстве
+            </div>
+            <v-btn
+              class="v-btn--block mt-5"
+              @click="createShareLink"
+            >
+              Получить ссылку
+            </v-btn>
+          </v-alert>
+
+
+          <v-alert
+            color="default"
+
+            icon="mdi-table-arrow-down"
+            density="compact"
+            class="mt-5"
+          >
+            <div>
+              Вы можете скачать текущий план тренировок в формате CSV,
+              чтобы редактировать данные из других приложений, а затем загружать
+              и использовать в Dogegym
+            </div>
+            <div class="text-red-accent-1 mt-2">
+              Формат документа нельзя менять иммется вероятность утери данных
             </div>
 
-            <template #actions>
-              <v-btn
-                color="primary"
-                variant="text"
-                @click="snackbar = false"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </template>
-          </v-snackbar>
-        </div>
-      </v-col>
+            <v-btn
+              class="v-btn--block"
+              @click="downloadCSV"
+            >
+              Скачать план тренировок
+            </v-btn>
 
-      <v-col cols="12">
-        <v-file-input
-          ref="fileLoad"
-          show-size
-          counter
-          multiple
-          label="Загрузить план тренировок"
-          accept="text/csv"
-          @update:modelValue="uploadCSV"
-        />
+            <v-file-input
+              ref="fileLoad"
+              show-size
+              counter
+              multiple
+              class="mt-5"
+              label="Загрузить план тренировок"
+              accept="text/csv"
+              @update:modelValue="uploadCSV"
+            />
+          </v-alert>
+
+          <div class="text-center ma-2">
+            <v-snackbar
+              v-model="snackbar"
+              :top="true"
+            >
+              <div class="text-white">
+                Ссылка скопирована {{ sharedLink }}
+              </div>
+
+              <template #actions>
+                <v-btn
+                  color="primary"
+                  variant="text"
+                  @click="snackbar = false"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </template>
+            </v-snackbar>
+          </div>
+        </div>
       </v-col>
     </v-row>
   </v-container>
