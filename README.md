@@ -1,4 +1,8 @@
 # frontend
+### NGINX config file
+```
+vim /etc/nginx/sites-available/default
+```
 
 ## Project setup
 ```

@@ -63,6 +63,12 @@ const routes: Array<CustomRouteRecordRaw> = [
     name: 'workoutPlanRunning',
     component: () => import(/* webpackChunkName: "about" */ '../views/WorkoutPlanRunning.vue'),
     isMainMenu:false,
+  },
+  {
+    path: '/state-from-shared-link/:uid',
+    name: 'stateFromSharedLink',
+    component: () => import(/* webpackChunkName: "about" */ '../views/StateFromSharedLink.vue'),
+    isMainMenu:false,
   }
 ];
 export default routes;

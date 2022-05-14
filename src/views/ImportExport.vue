@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ConvertStateService } from "@/services";
+import { ConvertStateService, ShareService } from "@/services";
 import { DogeGymState } from "@/typings/interfaces";
 
 export default defineComponent({
@@ -11,12 +11,28 @@ export default defineComponent({
         name: 'user-name',
         password: 'user-password'
       },
-      fileData: []
+      fileData: [],
+      snackbar: false,
+      sharedLink: ''
     }
   },
   methods: {
-    testEventEmit() {
-      (<HTMLElement>this.$refs.testEventRef).innerHTML = (new Date()).toString();
+    async createShareLink() {
+
+      const link = await ShareService.createLink(this.$store.state);
+      const uid = link.data.uid;
+
+      const route = this.$router.resolve({
+        name: 'stateFromSharedLink',
+        params: {
+          uid
+        }
+      });
+
+      const absoluteURL = new URL(route.href, window.location.href).href;
+      this.sharedLink = absoluteURL;
+      await navigator.clipboard.writeText(absoluteURL);
+      this.snackbar = true;
     },
 
     async readFileContent(file: File): Promise<string> {
@@ -42,22 +58,9 @@ export default defineComponent({
       const file: File = data[0] as File;
       const csvContent = await this.readFileContent(file);
       const state: DogeGymState = await ConvertStateService.convertToState(csvContent);
-
-
-      console.log({state})
-
-
-      const newState = {...this.$store.state, ...state};
-
-      console.log({newState})
-
       this.$store.replaceState({...this.$store.state, ...state} as DogeGymState);
-
-
-      this.$router.push({ path: '/workout-plans' })
-
+      this.$router.replace({ path: '/workout-plans' })
     },
-
 
     async downloadCSV() {
       const response = await ConvertStateService.convertToCSV(this.$store.state);
@@ -85,6 +88,37 @@ export default defineComponent({
           Скачать план тренировок
         </v-btn>
       </v-col>
+
+      <v-col cols="12">
+        <v-btn
+          class="v-btn--block"
+          @click="createShareLink"
+        >
+          Получить ссылку на план тренировок
+        </v-btn>
+
+        <div class="text-center ma-2">
+          <v-snackbar
+            v-model="snackbar"
+            :top="true"
+          >
+            <div class="text-white">
+              Ссылка скопирована {{ sharedLink }}
+            </div>
+
+            <template #actions>
+              <v-btn
+                color="primary"
+                variant="text"
+                @click="snackbar = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </template>
+          </v-snackbar>
+        </div>
+      </v-col>
+
       <v-col cols="12">
         <v-file-input
           ref="fileLoad"
