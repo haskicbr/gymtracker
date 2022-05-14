@@ -9,8 +9,6 @@ import { Workout, WorkoutRepeat } from "@/typings/interfaces";
 
 
 export default defineComponent({
-
-
   data() {
 
     const store = useStore();
@@ -52,18 +50,28 @@ export default defineComponent({
       newRepeatWeight
     }
   },
+
   methods: {
-    saveWorkout() {
-      if (!(<Workout>this.workout).id) {
-        this.workoutModel.id = (new Date()).toString();
-        this.store.commit('addWorkout', { ...this.workoutModel });
-      } else {
-        this.store.commit('updateWorkout', { ...this.workoutModel });
+    addRepeat(workoutModel: Workout) {
+
+      let weight = 5;
+      let repeats = 10;
+
+      if (workoutModel.repeats.length > 0) {
+        const lastRepeatsIndex = workoutModel.repeats.length - 1;
+        weight = workoutModel.repeats[lastRepeatsIndex].weight;
+        repeats = workoutModel.repeats[lastRepeatsIndex].repeats;
       }
 
-      this.router.push({ path: '/workouts' });
+      this.$store.commit('addRepeat', {
+        workout: workoutModel, repeat: {
+          weight,
+          repeats
+        }
+      })
     }
-  },
+  }
+
 });
 
 </script>
@@ -90,10 +98,7 @@ export default defineComponent({
       <div>
         Подходы:
         <v-btn
-          @click="$store.commit('addRepeat', {workout:workoutModel, repeat:{
-            weight: 5,
-            repeats: 10
-          }})"
+          @click="addRepeat(workoutModel)"
         >
           +
         </v-btn>
