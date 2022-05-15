@@ -31,37 +31,29 @@ const workouts = store.state.workouts.sort((a,b) => {
 </script>
 
 <template>
-  <v-container>
-    <v-row>
-      <v-col
-        md="4"
-        lg="3"
-        cols="12"
-      >
-        <WorkoutAddForm />
-      </v-col>
-    </v-row>
+  <v-card
+    class="mx-auto mt-10"
+    style="max-width: 600px"
+  >
+    <v-card-content>
+      <WorkoutAddForm />
 
-    <v-row>
-      <v-col
-        v-for="workout in workouts"
-        :key="workout.id"
-        md="4"
-        sm="6"
-        lg="3"
-        cols="12"
-      >
-        <WorkoutListView :workout="workout" />
-      </v-col>
-    </v-row>
-  </v-container>
+      <v-table>
+        <tbody>
+          <template
+            v-for="workout in workouts"
+            :key="workout.id"
+          >
+            <WorkoutListView :workout="workout" />
+          </template>
+        </tbody>
+      </v-table>
+    </v-card-content>
+  </v-card>
 </template>
 
 <style lang="scss">
 .card-action-btn-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row
+
 }
 </style>

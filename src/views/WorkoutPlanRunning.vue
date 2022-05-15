@@ -104,7 +104,30 @@ export default defineComponent({
       this.repeatTimer = window.setInterval(() => {
         this.repeatTime += 1;
       }, 1000);
-    }
+    },
+
+
+    decreaseRepeatCount(workout: Workout, workoutRepeatCounter: number) {
+      this.$store.commit('decreaseRepeatCount', {
+        workout, repeatIndex:workoutRepeatCounter
+      })
+    },
+    increaseRepeatCount(workout: Workout, workoutRepeatCounter: number) {
+      this.$store.commit('increaseRepeatCount', {
+        workout, repeatIndex:workoutRepeatCounter
+      })
+    },
+    increaseRepeat(workout: Workout, workoutRepeatCounter: number) {
+      this.$store.commit('increaseRepeat', {
+        workout, repeatIndex:workoutRepeatCounter
+      });
+    },
+
+    decreaseRepeat(workout: Workout, workoutRepeatCounter: number) {
+      this.$store.commit('increaseRepeat', {
+        workout, repeatIndex:workoutRepeatCounter
+      });
+    },
   }
 });
 </script>
@@ -166,32 +189,118 @@ export default defineComponent({
               </v-col>
             </v-row>
 
-            <v-row style="height: 200px">
+            <v-row>
               <v-col cols="6">
-                <template v-if="!workoutPlanIsCompleted">
-                  <div class="text-h6">
-                    Подход {{ workoutRepeatCounter +1 }}
-                  </div>
-                  <div class="text-h6">
-                    Количество повторений {{ workouts[workoutCounter].repeats[workoutRepeatCounter].repeats }}
-                  </div>
+                <v-table>
+                  <tbody>
+                    <tr>
+                      <td colspan="3">
+                        <template v-if="!workoutPlanIsCompleted">
+                          <template v-if="isStartedRest && !workoutPlanIsCompleted">
+                            Отдых {{ restTime }} сек
+                          </template>
 
-                  <div class="text-h6">
-                    Вес {{ workouts[workoutCounter].repeats[workoutRepeatCounter].weight }} КГ
-                  </div>
+                          <template v-if="isStartedRepeat">
+                            Время выполнения упражнения {{ repeatTime }} сек
+                          </template>
+                        </template>
+                      </td>
+                    </tr>
 
-                  <template v-if="isStartedRest && !workoutPlanIsCompleted">
-                    <h3>
-                      Отдых {{ restTime }} сек
-                    </h3>
-                  </template>
+                    <tr>
+                      <td
+                        colspan="3"
+                      >
+                        Подход {{ workoutRepeatCounter + 1 }}
+                      </td>
+                    </tr>
 
-                  <template v-if="isStartedRepeat">
-                    <h3>
-                      Время выполнения упражнения {{ repeatTime }} сек
-                    </h3>
-                  </template>
-                </template>
+                    <tr>
+                      <td
+                        colspan="3"
+                      >
+                        вес
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 30px">
+                        <v-btn
+                          size="x-small"
+                          @click="$store.commit('decreaseRepeat', {
+                            workout:workouts[workoutCounter], repeatIndex:workoutRepeatCounter})"
+                        >
+                          <v-icon
+                            color="red"
+                          >
+                            mdi-minus
+                          </v-icon>
+                        </v-btn>
+                      </td>
+                      <td>
+                        <input
+                          v-model="workouts[workoutCounter].repeats[workoutRepeatCounter].weight"
+                          class="workout-param__input"
+                          type="number"
+                        >
+                      </td>
+                      <td style="width: 30px">
+                        <v-btn
+                          size="x-small"
+                          @click="$store.commit('increaseRepeat', {
+                            workout:workouts[workoutCounter], repeatIndex:workoutRepeatCounter})"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-plus
+                          </v-icon>
+                        </v-btn>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="3">
+                        Повторения
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="width: 30px">
+                        <v-btn
+                          size="x-small"
+                          @click="$store.commit('decreaseRepeatCount', {
+                            workout:workouts[workoutCounter], repeatIndex:workoutRepeatCounter})"
+                        >
+                          <v-icon
+                            color="red"
+                          >
+                            mdi-minus
+                          </v-icon>
+                        </v-btn>
+                      </td>
+                      <td>
+                        <input
+                          v-model="workouts[workoutCounter].repeats[workoutRepeatCounter].repeats"
+                          class="workout-param__input"
+                          type="number"
+                        >
+                      </td>
+                      <td style="width: 30px">
+                        <v-btn
+                          size="x-small"
+                          @click="$store.commit('increaseRepeatCount', {
+                            workout:workouts[workoutCounter], repeatIndex:workoutRepeatCounter})"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-plus
+                          </v-icon>
+                        </v-btn>
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-table>
               </v-col>
 
               <v-col
@@ -232,7 +341,7 @@ export default defineComponent({
   </v-container>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .doge--workout-plan {
   top: -25px;
   height: 400px;
@@ -270,6 +379,30 @@ export default defineComponent({
 
 .workout-plan__button {
   margin: 0 auto;
+}
+
+
+.workout-param__input {
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+  color: white;
+  width: 100%;
+  height: 100%;
+
+}
+
+.workout-param__input:focus {
+  outline: gray
+}
+
+.workout-param__description {
+  width: 120px;
+}
+
+.v-table > .v-table__wrapper > table > tbody > tr > td, .v-table > .v-table__wrapper > table > tbody > tr > th, .v-table > .v-table__wrapper > table > thead > tr > td, .v-table > .v-table__wrapper > table > thead > tr > th, .v-table > .v-table__wrapper > table > tfoot > tr > td, .v-table > .v-table__wrapper > table > tfoot > tr > th {
+  padding: 0px 4px;
+  transition: height cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 

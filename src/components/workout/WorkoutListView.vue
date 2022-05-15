@@ -34,99 +34,99 @@ export default defineComponent({
 
 
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-    <v-card-content>
-      <div>
-        <div
-          style="display: flex"
-          class="flex full-width text-overline flex-row justify-space-between"
-        >
-          <div style="display: flex">
-            {{ workout.title }}
-          </div>
-
-          <v-btn
-            variant="text"
-            :icon="(isShowedWorkoutRepeats) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-            @click="changeShowWorkoutRepeats"
-          />
-        </div>
-
-        <div class="text-caption">
-          {{ workout.description }}
-        </div>
-
-        <div
-          v-if="isShowedWorkoutRepeats"
-          class=" mt-5"
-        >
-          <v-table style="width: 100%">
-            <thead>
-              <tr>
-                <td
-                  style="padding-left: 0"
-                  class="text-left"
-                >
-                  Подходы
-                </td>
-                <td class="text-center">
-                  Вес
-                </td>
-                <td class="text-center">
-                  Повторения
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(item, index) in workout.repeats"
-                :key="index"
-              >
-                <td
-                  class="text-left"
-                >
-                  {{ index + 1 }}
-                </td>
-                <td class="text-center">
-                  {{ item.weight }} кг
-                </td>
-                <td class="text-center">
-                  {{ item.repeats }}
-                </td>
-              </tr>
-            </tbody>
-          </v-table>
-        </div>
+  <tr>
+    <td>
+      <v-btn
+        color="default"
+        :icon="isShowedWorkoutRepeats ? 'mdi-table-eye-off':'mdi-table-eye'"
+        size="x-small"
+        @click="changeShowWorkoutRepeats"
+      />
+    </td>
+    <td>
+      <div class="mt-2">
+        {{ workout.title.toLowerCase() }}
       </div>
-    </v-card-content>
 
-    <v-card-actions>
-      <div class="card-action-btn-container flex-row justify-space-between">
-        <router-link
-          v-slot="{ navigate }"
-          custom
-          :to="'/workouts/' + workout.id"
-        >
-          <v-btn
-            text
-            color="primary"
-            @click="navigate"
-          >
-            Изменить
-          </v-btn>
-        </router-link>
+      <div class="mt-2 mb-2">
+        {{ workout.description.toLowerCase() }}
+      </div>
+    </td>
 
+
+    <td>
+      <router-link
+        v-slot="{ navigate }"
+        custom
+        :to="'/workouts/' + workout.id"
+      >
         <v-btn
-          text
-          color="warning"
-          @click="deleteWorkout(workout.id)"
+          color="default"
+          icon="mdi-pencil"
+          size="x-small"
+          @click="navigate"
+        />
+      </router-link>
+    </td>
+
+    <td>
+      <v-btn
+        color="error"
+        variant="outlined"
+        icon="mdi-delete"
+        size="x-small"
+        @click="deleteWorkout(workout.id)"
+      />
+    </td>
+  </tr>
+
+  <tr>
+    <td
+      v-if="isShowedWorkoutRepeats"
+      colspan="4"
+      style="padding: 0px"
+    >
+      <div class="mt-2">
+        <v-table
+          density="true"
+          style="width: 100%"
         >
-          удалить
-        </v-btn>
+          <thead>
+            <tr>
+              <td
+
+                class="text-left"
+              >
+                Подходы
+              </td>
+              <td class="text-left">
+                Вес
+              </td>
+              <td class="text-left">
+                Повторения
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item, index) in workout.repeats"
+              :key="index"
+            >
+              <td
+                class="text-left"
+              >
+                {{ index + 1 }}
+              </td>
+              <td class="text-left">
+                {{ item.weight }} кг
+              </td>
+              <td class="text-left">
+                {{ item.repeats }}
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
       </div>
-    </v-card-actions>
-  </v-card>
+    </td>
+  </tr>
 </template>
