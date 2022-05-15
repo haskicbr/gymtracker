@@ -37,7 +37,6 @@ jobs:
       - name: copy files
         run: |
           echo "Start deploy to: ${HOST}"
-          scp -r -C dist/* root@${HOST}:/var/www/html
           mv dist html && tar czv html | ssh root@${HOST} 'cat | tar xz -C /var/www/'
 
       - name: Finish Message
