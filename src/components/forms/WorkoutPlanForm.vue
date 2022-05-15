@@ -37,9 +37,19 @@ export default defineComponent({
 
     const workoutOptions = this.$store.state.workouts.map((workoutEl: Workout) => {
       const { id, title, description } = workoutEl;
-      return { id, title, description };
-    });
+      return { id, title: title.toLowerCase(), description: description.toLowerCase() };
+    }).sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
 
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
 
     const checkedWorkoutIds: string[] = workoutPlan.workouts;
 
@@ -136,9 +146,9 @@ export default defineComponent({
         >
           <template v-if="checkWorkoutInPlan(id)">
             <v-list-item-header>
-              <v-list-item-title>{{ $store.getters.getWorkoutById(id)?.title }}</v-list-item-title>
+              <v-list-item-title>{{ $store.getters.getWorkoutById(id)?.title.toLowerCase() }}</v-list-item-title>
               <v-list-item-subtitle>
-                {{ $store.getters.getWorkoutById(id)?.description }}
+                {{ $store.getters.getWorkoutById(id)?.description.toLowerCase() }}
               </v-list-item-subtitle>
               <v-list-item-subtitle />
             </v-list-item-header>
@@ -168,19 +178,16 @@ export default defineComponent({
         </v-list-item>
 
 
-        <v-list-item
-          v-for="option in workoutOptions"
-          :key="option.id"
-          three-line
-        >
-          <template v-if="!checkWorkoutInPlan(option.id)">
+        <template v-for="option in workoutOptions">
+          <v-list-item
+            v-if="!checkWorkoutInPlan(option.id)"
+            :key="option.id"
+            three-line
+          >
             <v-list-item-header>
               <v-list-item-title>{{ option.title }}</v-list-item-title>
               <v-list-item-subtitle>
                 {{ option.description }}
-              </v-list-item-subtitle>
-              <v-list-item-subtitle>
-                consectetur adipiscing elit.
               </v-list-item-subtitle>
             </v-list-item-header>
 
@@ -192,8 +199,8 @@ export default defineComponent({
                 @click.stop="checkWorkout(option.id)"
               />
             </v-list-item-avatar>
-          </template>
-        </v-list-item>
+          </v-list-item>
+        </template>
 
 
         <v-btn

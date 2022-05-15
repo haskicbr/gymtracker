@@ -15,6 +15,19 @@ const route = useRoute();
 const deleteWorkout = (id: string) => {
   store.commit('deleteWorkout', id);
 }
+
+const workouts = store.state.workouts.sort((a,b) => {
+  const titleA = a.title.toLowerCase();
+  const titleB = b.title.toLowerCase();
+
+  if (titleA < titleB ){
+    return -1;
+  }
+  if ( titleA > titleB ){
+    return 1;
+  }
+  return 0;
+});
 </script>
 
 <template>
@@ -31,7 +44,7 @@ const deleteWorkout = (id: string) => {
 
     <v-row>
       <v-col
-        v-for="workout in store.state.workouts"
+        v-for="workout in workouts"
         :key="workout.id"
         md="4"
         sm="6"
