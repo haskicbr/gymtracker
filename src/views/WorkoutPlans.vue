@@ -4,12 +4,14 @@
 import { defineComponent } from "vue";
 import router from "@/router";
 import WorkoutPlanAddForm from "@/components/forms/WorkoutPlanAddForm.vue";
+import WorkoutPlanListView from "@/components/workout/WorkoutPlanListView.vue";
 import { WorkoutPlan } from "@/typings/interfaces";
 
 export default defineComponent({
   name: "WorkoutPlans",
   components: {
     WorkoutPlanAddForm,
+    WorkoutPlanListView
   },
   data() {
     const workoutPlans = this.$store.state.workoutPlans;
@@ -19,7 +21,6 @@ export default defineComponent({
   },
 
   methods: {
-
 
     isAvailableWorkoutPlanToRun(workoutPlan: WorkoutPlan) {
       if (workoutPlan.workouts.length === 0) {
@@ -57,98 +58,22 @@ export default defineComponent({
 
 
 <template>
-  <v-container>
-    <v-row>
-      <v-col
-        md="4"
-        lg="3"
-        cols="12"
-      >
-        <WorkoutPlanAddForm />
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col
-        v-for="workoutPlan in workoutPlans"
-        :key="workoutPlan.id"
-        md="4"
-        lg="3"
-        cols="12"
-      >
-        <v-card
-          style="max-width: 400px"
-          class="mx-auto"
-        >
-          <v-card-content>
-            <div>
-              <div class="text-overline mb-1">
-                {{ workoutPlan.title }}
-              </div>
-              <div class="text-h6 mb-1" />
-              <div class="text-caption">
-                {{ workoutPlan.description }}
-              </div>
-
-              <div
-                v-if="true"
-                class="text-caption"
-              >
-                <v-table style="width: 100%">
-                  <tbody>
-                    <tr
-                      v-for="(id, index) in workoutPlan.workouts"
-                      :key="id"
-                    >
-                      <td class="text-center">
-                        {{ $store.getters.getWorkoutById(id)?.title }}
-                        {{ $store.getters.getWorkoutById(id)?.description }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-table>
-              </div>
-            </div>
-          </v-card-content>
-
-          <v-card-actions>
-            <router-link
-              v-slot="{ navigate }"
-              custom
-              :to="getPlanFormUrl(workoutPlan.id)"
-            >
-              <v-btn
-                text
-                color="primary"
-                @click="navigate"
-              >
-                Изменить
-              </v-btn>
-            </router-link>
-
-            <v-btn
-              text
-              color="warning"
-              @click="deleteWorkoutPlan(workoutPlan.id)"
-            >
-              удалить
-            </v-btn>
-          </v-card-actions>
-
-          <v-card-actions>
-            <v-btn
-              v-if="isAvailableWorkoutPlanToRun(workoutPlan)"
-              width="100%"
-              text
-              color="primary"
-              @click="runWorkoutPlan(workoutPlan.id)"
-            >
-              Начать
-            </v-btn>
-            <v-card-actions />
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card
+    class="mx-auto"
+    style="max-width: 600px"
+  >
+    <v-card-content>
+      <WorkoutPlanAddForm />
+      <v-table>
+        <tbody>
+          <template
+            v-for="workoutPlan in workoutPlans"
+            :key="workoutPlan.id"
+          >
+            <WorkoutPlanListView :workout-plan="workoutPlan" />
+          </template>
+        </tbody>
+      </v-table>
+    </v-card-content>
+  </v-card>
 </template>

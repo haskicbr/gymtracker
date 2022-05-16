@@ -27,20 +27,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-card
-    style="max-width: 400px"
-    class="mx-auto"
-  >
-    <v-card-actions>
-      <v-btn
-        width="100%"
-        text
-        color="primary"
-        @click="createWorkoutPlan"
-      >
-        Добавить новый план тренировок
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+  <v-card-title>
+    Тренировки
+    <v-btn
+      class="ma-2"
+      variant="outlined"
+      icon="mdi-plus"
+      color="green"
+      size="small"
+      @click="createWorkoutPlan"
+    />
+  </v-card-title>
 </template>
 

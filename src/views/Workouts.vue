@@ -32,12 +32,11 @@ const workouts = store.state.workouts.sort((a,b) => {
 
 <template>
   <v-card
-    class="mx-auto mt-10"
+    class="mx-auto"
     style="max-width: 600px"
   >
     <v-card-content>
       <WorkoutAddForm />
-
       <v-table>
         <tbody>
           <template
