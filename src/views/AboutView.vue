@@ -18,7 +18,7 @@
           Выгружать результаты в exel таблицы, изменять  и загружать их обратно
         </p>
 
-        <p class="text-center">
+        <p class="text-center" style="display: none">
           <a
             href="https://t.me/dogegymapp"
             target="_blank"
