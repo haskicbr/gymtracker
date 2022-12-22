@@ -33,6 +33,7 @@ interface Settings {
 
 interface DogeGymState {
   workoutPlanStarted: boolean;
+  workoutActiveId?:string;
   workoutPlanActiveId?: string;
   workoutPlans: WorkoutPlan[];
   workouts: Workout[];
@@ -42,8 +43,6 @@ interface DogeGymState {
 interface DogeGymGetters {
   getWorkoutById:  Workout | undefined
 }
-
-
 
 export {
   WorkoutPlan,

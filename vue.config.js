@@ -20,7 +20,15 @@ module.exports = defineConfig({
   pwa: {
     name: 'Dogegym app',
     short_name: 'Dogegym app',
-    InjectManifest: "InjectManifest"
+    InjectManifest: "InjectManifest",
+    iconPaths: {
+      faviconSVG: null,
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon16: 'img/icons/favicon-16x16.png',
+      appleTouchIcon: 'img/icons/android-chrome-192x192.png',
+      maskIcon: null,
+      msTileImage: 'img/icons/android-chrome-192x192.png'
+    }
   },
 
   chainWebpack: config => {

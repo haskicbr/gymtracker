@@ -18,7 +18,7 @@ let state: DogeGymState = {
 
 
   workoutPlanStarted: false,
-  workoutPlanActiveId: undefined,
+
   workoutPlans: [
     {
       id: '1',
