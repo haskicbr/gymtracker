@@ -37,8 +37,8 @@ jobs:
       - name: copy files
         run: |
           echo "Start deploy to: ${HOST}"
-          ssh root@${HOST} 'rm -rf /var/www/html'
-          mv dist html && tar czv html | ssh root@${HOST} 'cat | tar xz -C /var/www/'
+          ssh root@${HOST} 'rm -rf /var/www/gymtracker'
+          mv dist gymtracker && tar czv html | ssh root@${HOST} 'cat | tar xz -C /var/www/gymtracker'
 
       - name: Finish Message
         run: |
