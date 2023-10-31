@@ -43,7 +43,7 @@ export default defineComponent({
               >
             </v-avatar>
             <v-list-item-title class="doge-logo__title">
-              Dogegym
+              Gymtracker
             </v-list-item-title>
           </v-list-item>
           <v-divider />

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-const baseUrl = (isDevelopment) ? "http://localhost:3000" : "https://api.dogegym.ru"
+const baseUrl = (isDevelopment) ? "http://localhost:3000" : "https://api.gymtracker.ru"
 
 const axiosConfig = {
   baseURL: baseUrl,

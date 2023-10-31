@@ -18,8 +18,8 @@ module.exports = defineConfig({
     },
   },
   pwa: {
-    name: 'Dogegym app',
-    short_name: 'Dogegym app',
+    name: 'Gymtracker app',
+    short_name: 'Gymtracker app',
     InjectManifest: "InjectManifest",
     iconPaths: {
       faviconSVG: null,
@@ -40,7 +40,7 @@ module.exports = defineConfig({
   css: {
     extract: {
       filename: `css/[name].[contenthash:8].${Date.now()}.css`,
-      chunkFilename: `css/[name].[contenthash:8].${Date.now()}.css`
+      chunkFilename: `css/[id].${Date.now()}.css`
     }
   }
 
